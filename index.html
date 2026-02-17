@@ -661,6 +661,43 @@ const FONTS = {
   tajawal: "'Tajawal', sans-serif"
 };
 
+// ==================== URL STATE MANAGEMENT (مضغوط) ====================
+
+// ترميز الإعدادات في 5 أرقام: scanlines,vignette,grain,glow,glitch(0/1)
+function encodeEffects(e) {
+  return [e.scanlines, e.vignette, e.grain, e.glow, e.glitch ? 1 : 0].join(',');
+}
+
+// ترميز الفلاتر في 5 أرقام: brightness,contrast,saturation,blur,opacity
+function encodeFilters(f) {
+  return [f.brightness, f.contrast, f.saturation, f.blur, f.opacity].join(',');
+}
+
+function decodeEffects(str) {
+  const [s, v, g, gl, gi] = str.split(',').map(Number);
+  return { scanlines: s || 12, vignette: v || 70, grain: g || 4, glow: gl || 50, glitch: gi === 1 };
+}
+
+function decodeFilters(str) {
+  const [b, c, s, bl, o] = str.split(',').map(Number);
+  return { brightness: b || 100, contrast: c || 120, saturation: s || 100, blur: bl || 0, opacity: o || 100 };
+}
+
+function saveToURL(key, value) {
+  const url = new URL(window.location.href);
+  if (value === null || value === '' || value === 'cyberweb' || value === 'cyan' || value === 'electrolize') {
+    url.searchParams.delete(key); // حذف القيم الافتراضية لتقليل الحجم
+  } else {
+    url.searchParams.set(key, value);
+  }
+  window.history.replaceState({}, '', url);
+}
+
+function getFromURL(key, defaultVal) {
+  const val = new URLSearchParams(window.location.search).get(key);
+  return val !== null ? val : defaultVal;
+}
+
 // ==================== STATE ====================
 const state = {
   canvas: null, ctx: null,
@@ -1447,51 +1484,56 @@ function updateBatteryStatus() {
   }
 }
 
-// ==================== PREFERENCES (المنطق الأصلي) ====================
+// ==================== PREFERENCES (المنطق الأصلي + URL) ====================
 function restorePreferences() {
-  // Background
-  const savedBg = getFromStorage('bg', 'cyberweb');
+  // Background (افتراضي: cyberweb)
+  const savedBg = getFromURL('bg') || getFromStorage('bg', 'cyberweb');
   state.bgMode = savedBg;
   elements['bg-select'].value = savedBg;
   
-  // Theme
-  const savedTheme = getFromStorage('theme', 'cyan');
+  // Theme (افتراضي: cyan)
+  const savedTheme = getFromURL('th') || getFromStorage('theme', 'cyan');
   applyTheme(savedTheme);
   elements['theme-select'].value = savedTheme;
   
-  // Font
-  const savedFont = getFromStorage('font', 'electrolize');
+  // Font (افتراضي: electrolize)
+  const savedFont = getFromURL('fn') || getFromStorage('font', 'electrolize');
   applyFont(savedFont);
   elements['font-select'].value = savedFont;
   
-  // Text (المنطق الأصلي - يعرض النص المحفوظ فوراً!)
+  // Effects (افتراضي: 12,70,4,50,1)
+  const urlFx = getFromURL('fx');
+  const savedFx = urlFx ? decodeEffects(urlFx) : 
+                  JSON.parse(getFromStorage('effects', '{}'));
+  state.effects = { scanlines: 12, vignette: 70, grain: 4, glow: 50, glitch: true, ...savedFx };
+  
+  // Filters (افتراضي: 100,120,100,0,100)
+  const urlFl = getFromURL('fl');
+  const savedFl = urlFl ? decodeFilters(urlFl) : 
+                  JSON.parse(getFromStorage('filters', '{}'));
+  state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100, ...savedFl };
+  
+  // تحديث UI
+  elements['scanline-slider'].value = state.effects.scanlines;
+  elements['vignette-slider'].value = state.effects.vignette;
+  elements['grain-slider'].value = state.effects.grain;
+  elements['glow-slider'].value = state.effects.glow;
+  elements['glitch-toggle'].classList.toggle('active', state.effects.glitch);
+  
+  elements['brightness-slider'].value = state.filters.brightness;
+  elements['contrast-slider'].value = state.filters.contrast;
+  elements['saturation-slider'].value = state.filters.saturation;
+  elements['blur-slider'].value = state.filters.blur;
+  elements['opacity-slider'].value = state.filters.opacity;
+  
+  // Text (فقط LocalStorage - لا نريد URL ضخم)
   const savedText = getFromStorage('text', '');
   if (savedText) {
     elements['msg-input'].value = savedText;
     initMatrixStream(savedText.split('\n').filter(l => l.trim()));
   }
   
-  // Effects
-  try {
-    const savedEffects = JSON.parse(getFromStorage('effects', '{}'));
-    state.effects = { ...state.effects, ...savedEffects };
-    elements['scanline-slider'].value = state.effects.scanlines;
-    elements['vignette-slider'].value = state.effects.vignette;
-    elements['grain-slider'].value = state.effects.grain;
-    elements['glow-slider'].value = state.effects.glow;
-    elements['glitch-toggle'].classList.toggle('active', state.effects.glitch);
-  } catch(e) {}
-  
-  // Filters
-  try {
-    const savedFilters = JSON.parse(getFromStorage('filters', '{}'));
-    state.filters = { ...state.filters, ...savedFilters };
-    elements['brightness-slider'].value = state.filters.brightness;
-    elements['contrast-slider'].value = state.filters.contrast;
-    elements['saturation-slider'].value = state.filters.saturation;
-    elements['blur-slider'].value = state.filters.blur;
-    elements['opacity-slider'].value = state.filters.opacity;
-  } catch(e) {}
+  updateEffectsCSS();
 }
 
 // ==================== EVENT LISTENERS ====================
@@ -1515,15 +1557,22 @@ function setupEventListeners() {
     });
   });
   
-  // نسخ رابط الصفحة (المنطق الأصلي - هذا هو المهم!)
+  // نسخ رابط الصفحة مع الإعدادات (مضغوط!)
   elements['btn-copy-link'].addEventListener('click', function() {
+    // مزامنة الإعدادات الحالية إلى URL
+    saveToURL('bg', state.bgMode);
+    saveToURL('th', state.theme);
+    saveToURL('fn', state.font);
+    saveToURL('fx', encodeEffects(state.effects));
+    saveToURL('fl', encodeFilters(state.filters));
+    
     navigator.clipboard?.writeText(window.location.href).then(() => {
       const prev = this.textContent;
       this.textContent = '✓ تم النسخ';
       this.classList.add('primary');
       setTimeout(() => { this.textContent = prev; this.classList.remove('primary'); }, 1400);
-      if (navigator.vibrate) navigator.vibrate(50);
-      showToast('📋 تم نسخ رابط الشبكة!');
+      if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
+      showToast('📋 تم نسخ الرابط مع الألوان!');
     });
   });
   
@@ -1539,81 +1588,100 @@ function setupEventListeners() {
     fetchPayload(true);
   });
   
-  // Selects
+  // Selects - حفظ فوري في URL
   elements['bg-select'].addEventListener('change', (e) => {
     state.bgMode = e.target.value;
     saveToStorage('bg', state.bgMode);
+    saveToURL('bg', state.bgMode);
     if (state.bgMode === 'matrix') initMatrixDrops();
     if (state.bgMode === 'fireflies') initFireflies();
   });
-  elements['theme-select'].addEventListener('change', (e) => applyTheme(e.target.value));
-  elements['font-select'].addEventListener('change', (e) => applyFont(e.target.value));
   
-  // File upload
+  elements['theme-select'].addEventListener('change', (e) => {
+    applyTheme(e.target.value);
+    saveToStorage('theme', e.target.value);
+    saveToURL('th', e.target.value);
+  });
+  
+  elements['font-select'].addEventListener('change', (e) => {
+    applyFont(e.target.value);
+    saveToStorage('font', e.target.value);
+    saveToURL('fn', e.target.value);
+  });
+  
+  // File upload (لا يؤثر على URL)
   elements['img-uploader'].addEventListener('change', (e) => {
     if (e.target.files[0]) handleImageUpload(e.target.files[0]);
   });
   
-  // Text input (المنطق الأصلي - حفظ فوري)
+  // Text input (LocalStorage فقط - لا URL)
   elements['msg-input'].addEventListener('input', (e) => {
     const text = e.target.value;
     saveToStorage('text', text);
     initMatrixStream(text.split('\n').filter(l => l.trim()));
   });
   
-  // Effect sliders
-  elements['scanline-slider'].addEventListener('input', (e) => {
-    state.effects.scanlines = parseInt(e.target.value);
+  // Effect sliders - حفظ مضغوط في URL
+  const updateEffects = () => {
     updateEffectsCSS();
     saveToStorage('effects', JSON.stringify(state.effects));
+    saveToURL('fx', encodeEffects(state.effects));
+  };
+  
+  elements['scanline-slider'].addEventListener('input', (e) => {
+    state.effects.scanlines = parseInt(e.target.value);
+    updateEffects();
   });
   elements['vignette-slider'].addEventListener('input', (e) => {
     state.effects.vignette = parseInt(e.target.value);
-    updateEffectsCSS();
-    saveToStorage('effects', JSON.stringify(state.effects));
+    updateEffects();
   });
   elements['grain-slider'].addEventListener('input', (e) => {
     state.effects.grain = parseInt(e.target.value);
-    updateEffectsCSS();
-    saveToStorage('effects', JSON.stringify(state.effects));
+    updateEffects();
   });
   elements['glow-slider'].addEventListener('input', (e) => {
     state.effects.glow = parseInt(e.target.value);
-    saveToStorage('effects', JSON.stringify(state.effects));
+    updateEffects();
   });
   elements['glitch-toggle'].addEventListener('click', (e) => {
     state.effects.glitch = !state.effects.glitch;
     e.target.classList.toggle('active', state.effects.glitch);
-    saveToStorage('effects', JSON.stringify(state.effects));
+    updateEffects();
   });
   
-  // Filter sliders
+  // Filter sliders - حفظ مضغوط في URL
+  const updateFilters = () => {
+    saveToStorage('filters', JSON.stringify(state.filters));
+    saveToURL('fl', encodeFilters(state.filters));
+  };
+  
   elements['brightness-slider'].addEventListener('input', (e) => {
     state.filters.brightness = parseInt(e.target.value);
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
   });
   elements['contrast-slider'].addEventListener('input', (e) => {
     state.filters.contrast = parseInt(e.target.value);
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
   });
   elements['saturation-slider'].addEventListener('input', (e) => {
     state.filters.saturation = parseInt(e.target.value);
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
   });
   elements['blur-slider'].addEventListener('input', (e) => {
     state.filters.blur = parseInt(e.target.value);
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
   });
   elements['opacity-slider'].addEventListener('input', (e) => {
     state.filters.opacity = parseInt(e.target.value);
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
   });
   elements['btn-reset-filters'].addEventListener('click', () => {
     state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100 };
     ['brightness', 'contrast', 'saturation', 'blur', 'opacity'].forEach(key => {
       elements[key + '-slider'].value = state.filters[key];
     });
-    saveToStorage('filters', JSON.stringify(state.filters));
+    updateFilters();
     showToast('🔄 تم إعادة تعيين الفلاتر');
   });
   
@@ -1750,4 +1818,4 @@ window.CYBERNEXUS = {
 };
 </script>
 </body>
-  </html>
+</html>
