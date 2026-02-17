@@ -1,760 +1,760 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>Cyber-Nexus V3.0 Pro</title>
-  <meta id="meta-desc" name="description" content="Cyber-Nexus: Interfacing with secure data streams." />
-  <meta property="og:title" content="Cyber-Nexus V3.0 Pro" />
-  <meta id="og-desc" property="og:description" content="Cyber-Nexus: Interfacing with secure data streams." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Share+Tech+Mono&family=Michroma&family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #00ffcc;
-      --secondary-color: #007766;
-      --bg-color: #0a0a0a;
-      --panel-bg: rgba(10, 10, 10, 0.92);
-      --panel-border: rgba(0, 255, 204, 0.4);
-      --text-color: #e0ffff;
-      --error-color: #ff3366;
-      --font-main: 'Electrolize', sans-serif;
-      --font-mono: 'Share Tech Mono', monospace;
-      --ui-z: 9999;
-      --scanline-opacity: 0.12;
-      --vignette-opacity: 0.7;
-      --grain-opacity: 0.04;
-      --glow-intensity: 20;
-    }
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+ <title>Cyber-Nexus V3.0 Pro</title>
+ <meta id="meta-desc" name="description" content="Cyber-Nexus: Interfacing with secure data streams." />
+ <meta property="og:title" content="Cyber-Nexus V3.0 Pro" />
+ <meta id="og-desc" property="og:description" content="Cyber-Nexus: Interfacing with secure data streams." />
+ <meta property="og:type" content="website" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Share+Tech+Mono&family=Michroma&family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+ <style>
+   :root {
+     --primary-color: #00ffcc;
+     --secondary-color: #007766;
+     --bg-color: #0a0a0a;
+     --panel-bg: rgba(10, 10, 10, 0.92);
+     --panel-border: rgba(0, 255, 204, 0.4);
+     --text-color: #e0ffff;
+     --error-color: #ff3366;
+     --font-main: 'Electrolize', sans-serif;
+     --font-mono: 'Share Tech Mono', monospace;
+     --ui-z: 9999;
+     --scanline-opacity: 0.12;
+     --vignette-opacity: 0.7;
+     --grain-opacity: 0.04;
+     --glow-intensity: 20;
+   }
 
-    * { box-sizing: border-box; }
+   * { box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      background: var(--bg-color);
-      overflow: hidden;
-      font-family: var(--font-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      touch-action: manipulation;
-      color: var(--text-color);
-    }
+   html, body {
+     height: 100%;
+     width: 100%;
+     margin: 0;
+     padding: 0;
+     background: var(--bg-color);
+     overflow: hidden;
+     font-family: var(--font-main);
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     touch-action: manipulation;
+     color: var(--text-color);
+   }
 
-    canvas#c {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
+   canvas#c {
+     display: block;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 0;
+   }
 
-    /* UI Layer */
-    #ui-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: var(--ui-z);
-      transform: translateY(-120%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      background: var(--panel-bg);
-      border-bottom: 2px solid var(--panel-border);
-      padding: 20px;
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      box-shadow: 0 8px 50px rgba(0, 255, 204, 0.2), 0 0 100px rgba(0, 255, 204, 0.05);
-      max-height: 95vh;
-      overflow-y: auto;
-      border-radius: 0 0 25px 25px;
-    }
+   /* UI Layer */
+   #ui-layer {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: var(--ui-z);
+     transform: translateY(-120%);
+     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+     background: var(--panel-bg);
+     border-bottom: 2px solid var(--panel-border);
+     padding: 20px;
+     backdrop-filter: blur(30px) saturate(200%);
+     -webkit-backdrop-filter: blur(30px) saturate(200%);
+     box-shadow: 0 8px 50px rgba(0, 255, 204, 0.2), 0 0 100px rgba(0, 255, 204, 0.05);
+     max-height: 95vh;
+     overflow-y: auto;
+     border-radius: 0 0 25px 25px;
+   }
 
-    body.admin-mode #ui-layer {
-      transform: translateY(0);
-    }
+   body.admin-mode #ui-layer {
+     transform: translateY(0);
+   }
 
-    #ui-close-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255, 51, 102, 0.2);
-      border: 2px solid var(--error-color);
-      color: var(--error-color);
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      z-index: 10000;
-    }
-    #ui-close-btn:hover {
-      background: var(--error-color);
-      color: white;
-      transform: rotate(90deg);
-    }
+   #ui-close-btn {
+     position: absolute;
+     top: 10px;
+     left: 10px;
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background: rgba(255, 51, 102, 0.2);
+     border: 2px solid var(--error-color);
+     color: var(--error-color);
+     font-size: 20px;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: all 0.3s;
+     z-index: 10000;
+   }
+   #ui-close-btn:hover {
+     background: var(--error-color);
+     color: white;
+     transform: rotate(90deg);
+   }
 
-    #ui-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: calc(var(--ui-z) - 1);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s;
-    }
-    body.admin-mode #ui-overlay {
-      opacity: 1;
-      visibility: visible;
-    }
+   #ui-overlay {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.5);
+     z-index: calc(var(--ui-z) - 1);
+     opacity: 0;
+     visibility: hidden;
+     transition: all 0.3s;
+   }
+   body.admin-mode #ui-overlay {
+     opacity: 1;
+     visibility: visible;
+   }
 
-    #ui-row {
-      display: flex;
-      gap: 15px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
+   #ui-row {
+     display: flex;
+     gap: 15px;
+     align-items: flex-start;
+     flex-wrap: wrap;
+     margin-top: 10px;
+   }
 
-    textarea#msg-input {
-      flex: 1 1 500px;
-      min-width: 200px;
-      height: 140px;
-      resize: vertical;
-      background: rgba(0, 0, 0, 0.8);
-      color: var(--text-color);
-      border: 2px solid var(--secondary-color);
-      padding: 15px;
-      font-size: 15px;
-      border-radius: 12px;
-      direction: ltr;
-      text-align: left;
-      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.1);
-      transition: all 0.3s;
-      font-family: var(--font-mono);
-    }
-    textarea#msg-input:focus {
-      border-color: var(--primary-color);
-      box-shadow: inset 0 0 20px rgba(0, 255, 204, 0.3), 0 0 30px rgba(0, 255, 204, 0.3);
-      outline: none;
-    }
+   textarea#msg-input {
+     flex: 1 1 500px;
+     min-width: 200px;
+     height: 140px;
+     resize: vertical;
+     background: rgba(0, 0, 0, 0.8);
+     color: var(--text-color);
+     border: 2px solid var(--secondary-color);
+     padding: 15px;
+     font-size: 15px;
+     border-radius: 12px;
+     direction: ltr;
+     text-align: left;
+     box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.1);
+     transition: all 0.3s;
+     font-family: var(--font-mono);
+   }
+   textarea#msg-input:focus {
+     border-color: var(--primary-color);
+     box-shadow: inset 0 0 20px rgba(0, 255, 204, 0.3), 0 0 30px rgba(0, 255, 204, 0.3);
+     outline: none;
+   }
 
-    .controls {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 150px;
-    }
+   .controls {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     min-width: 150px;
+   }
 
-    button, select, input[type="file"] {
-      background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,40,40,0.8));
-      color: var(--primary-color);
-      border: 2px solid var(--secondary-color);
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 700;
-      min-height: 48px;
-      font-family: var(--font-main);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(0, 255, 204, 0.15);
-      position: relative;
-      overflow: hidden;
-    }
-    button:hover, select:hover {
-      border-color: var(--primary-color);
-      box-shadow: 0 8px 30px rgba(0, 255, 204, 0.4);
-      transform: translateY(-3px);
-    }
-    button.primary {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: #000;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
-    }
-    button.success {
-      background: linear-gradient(135deg, #00ff88, #007744);
-      color: #000;
-    }
-    button.danger {
-      background: linear-gradient(135deg, #ff3366, #990033);
-      color: #fff;
-    }
+   button, select, input[type="file"] {
+     background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,40,40,0.8));
+     color: var(--primary-color);
+     border: 2px solid var(--secondary-color);
+     padding: 12px 20px;
+     border-radius: 10px;
+     cursor: pointer;
+     font-weight: 700;
+     min-height: 48px;
+     font-family: var(--font-main);
+     text-transform: uppercase;
+     letter-spacing: 0.08em;
+     transition: all 0.3s;
+     box-shadow: 0 4px 15px rgba(0, 255, 204, 0.15);
+     position: relative;
+     overflow: hidden;
+   }
+   button:hover, select:hover {
+     border-color: var(--primary-color);
+     box-shadow: 0 8px 30px rgba(0, 255, 204, 0.4);
+     transform: translateY(-3px);
+   }
+   button.primary {
+     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+     color: #000;
+     border-color: var(--primary-color);
+     box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+   }
+   button.success {
+     background: linear-gradient(135deg, #00ff88, #007744);
+     color: #000;
+   }
+   button.danger {
+     background: linear-gradient(135deg, #ff3366, #990033);
+     color: #fff;
+   }
 
-    input[type="file"] {
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-    }
-    input[type="file"]::-webkit-file-upload-button {
-      visibility: hidden;
-      width: 0;
-    }
-    input[type="file"]::before {
-      content: '📁 رفع صورة';
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+   input[type="file"] {
+     padding: 10px 15px;
+     display: flex;
+     align-items: center;
+   }
+   input[type="file"]::-webkit-file-upload-button {
+     visibility: hidden;
+     width: 0;
+   }
+   input[type="file"]::before {
+     content: '📁 رفع صورة';
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+   }
 
-    #secret-trigger {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      z-index: 10000;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      border: 3px solid var(--primary-color);
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
-      transition: all 0.3s;
-      animation: pulse-glow 2s infinite;
-    }
-    #secret-trigger::before { content: '⚙️'; }
-    #secret-trigger:hover {
-      transform: scale(1.1) rotate(30deg);
-    }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.5); }
-      50% { box-shadow: 0 0 50px rgba(0, 255, 204, 0.8); }
-    }
+   #secret-trigger {
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     width: 60px;
+     height: 60px;
+     z-index: 10000;
+     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+     border: 3px solid var(--primary-color);
+     border-radius: 50%;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 24px;
+     box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+     transition: all 0.3s;
+     animation: pulse-glow 2s infinite;
+   }
+   #secret-trigger::before { content: '⚙️'; }
+   #secret-trigger:hover {
+     transform: scale(1.1) rotate(30deg);
+   }
+   @keyframes pulse-glow {
+     0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.5); }
+     50% { box-shadow: 0 0 50px rgba(0, 255, 204, 0.8); }
+   }
 
-    .fab-container {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 9998;
-      transition: all 0.3s;
-    }
-    body.admin-mode .fab-container {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .fab {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      padding: 0;
-    }
+   .fab-container {
+     position: fixed;
+     bottom: 100px;
+     right: 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     z-index: 9998;
+     transition: all 0.3s;
+   }
+   body.admin-mode .fab-container {
+     opacity: 0;
+     pointer-events: none;
+   }
+   .fab {
+     width: 55px;
+     height: 55px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 22px;
+     padding: 0;
+   }
 
-    #readable-content {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-    }
+   #readable-content {
+     position: absolute;
+     left: -9999px;
+     opacity: 0;
+   }
 
-    #error-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10001;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(20px);
-      text-align: center;
-    }
-    #error-overlay.show {
-      display: flex;
-    }
-    #error-overlay-content {
-      padding: 40px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(20, 0, 0, 0.95), rgba(40, 0, 0, 0.9));
-      border: 3px solid var(--error-color);
-      box-shadow: 0 0 60px rgba(255, 51, 102, 0.6);
-      max-width: 90%;
-    }
+   #error-overlay {
+     position: fixed;
+     inset: 0;
+     display: none;
+     align-items: center;
+     justify-content: center;
+     z-index: 10001;
+     background: rgba(0, 0, 0, 0.95);
+     backdrop-filter: blur(20px);
+     text-align: center;
+   }
+   #error-overlay.show {
+     display: flex;
+   }
+   #error-overlay-content {
+     padding: 40px;
+     border-radius: 20px;
+     background: linear-gradient(135deg, rgba(20, 0, 0, 0.95), rgba(40, 0, 0, 0.9));
+     border: 3px solid var(--error-color);
+     box-shadow: 0 0 60px rgba(255, 51, 102, 0.6);
+     max-width: 90%;
+   }
 
-    #loading-indicator {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 10002;
-      display: none;
-      gap: 12px;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 12px 20px;
-      border-radius: 15px;
-      border: 2px solid var(--secondary-color);
-      box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
-    }
-    .loader-ring {
-      width: 30px;
-      height: 30px;
-      border: 3px solid transparent;
-      border-top-color: var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+   #loading-indicator {
+     position: fixed;
+     top: 20px;
+     left: 20px;
+     z-index: 10002;
+     display: none;
+     gap: 12px;
+     align-items: center;
+     background: rgba(0, 0, 0, 0.8);
+     padding: 12px 20px;
+     border-radius: 15px;
+     border: 2px solid var(--secondary-color);
+     box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+   }
+   .loader-ring {
+     width: 30px;
+     height: 30px;
+     border: 3px solid transparent;
+     border-top-color: var(--primary-color);
+     border-radius: 50%;
+     animation: spin 1s linear infinite;
+   }
+   @keyframes spin { to { transform: rotate(360deg); } }
 
-    #countdown-timer, #battery-status, #fps-counter, #image-status {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--primary-color);
-      text-shadow: 0 0 10px var(--primary-color);
-    }
+   #countdown-timer, #battery-status, #fps-counter, #image-status {
+     font-family: var(--font-mono);
+     font-size: 13px;
+     color: var(--primary-color);
+     text-shadow: 0 0 10px var(--primary-color);
+   }
 
-    #effects-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .scanlines {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, var(--scanline-opacity)),
-        rgba(0, 0, 0, var(--scanline-opacity)) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      pointer-events: none;
-    }
-    .vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, var(--vignette-opacity)) 100%);
-      pointer-events: none;
-    }
-    .grain {
-      position: absolute;
-      inset: 0;
-      opacity: var(--grain-opacity);
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
+   #effects-layer {
+     position: fixed;
+     inset: 0;
+     pointer-events: none;
+     z-index: 1;
+   }
+   .scanlines {
+     position: absolute;
+     inset: 0;
+     background: repeating-linear-gradient(
+       0deg,
+       rgba(0, 0, 0, var(--scanline-opacity)),
+       rgba(0, 0, 0, var(--scanline-opacity)) 1px,
+       transparent 1px,
+       transparent 3px
+     );
+     pointer-events: none;
+   }
+   .vignette {
+     position: absolute;
+     inset: 0;
+     background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, var(--vignette-opacity)) 100%);
+     pointer-events: none;
+   }
+   .grain {
+     position: absolute;
+     inset: 0;
+     opacity: var(--grain-opacity);
+     pointer-events: none;
+     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+   }
 
-    #drop-zone {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 255, 204, 0.15);
-      border: 5px dashed var(--primary-color);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10003;
-      backdrop-filter: blur(10px);
-      flex-direction: column;
-      gap: 20px;
-    }
-    #drop-zone.active { display: flex; }
-    #drop-zone-icon { font-size: 80px; animation: bounce 1s infinite; }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-    #drop-zone-text { font-size: 28px; color: var(--primary-color); text-shadow: 0 0 30px var(--primary-color); font-weight: 700; }
+   #drop-zone {
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 255, 204, 0.15);
+     border: 5px dashed var(--primary-color);
+     display: none;
+     align-items: center;
+     justify-content: center;
+     z-index: 10003;
+     backdrop-filter: blur(10px);
+     flex-direction: column;
+     gap: 20px;
+   }
+   #drop-zone.active { display: flex; }
+   #drop-zone-icon { font-size: 80px; animation: bounce 1s infinite; }
+   @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+   #drop-zone-text { font-size: 28px; color: var(--primary-color); text-shadow: 0 0 30px var(--primary-color); font-weight: 700; }
 
-    #toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: #000;
-      padding: 15px 30px;
-      border-radius: 50px;
-      font-weight: 700;
-      z-index: 10005;
-      opacity: 0;
-      transition: all 0.4s;
-      box-shadow: 0 10px 40px rgba(0, 255, 204, 0.4);
-    }
-    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+   #toast {
+     position: fixed;
+     bottom: 100px;
+     left: 50%;
+     transform: translateX(-50%) translateY(100px);
+     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+     color: #000;
+     padding: 15px 30px;
+     border-radius: 50px;
+     font-weight: 700;
+     z-index: 10005;
+     opacity: 0;
+     transition: all 0.4s;
+     box-shadow: 0 10px 40px rgba(0, 255, 204, 0.4);
+   }
+   #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    @media (max-width: 768px) {
-      #ui-layer { padding: 15px; max-height: 90vh; }
-      textarea#msg-input { height: 100px; flex-basis: 100%; font-size: 13px; }
-      .controls { flex-direction: row; flex-wrap: wrap; }
-      .controls button { flex: 1; min-width: 120px; }
-      #secret-trigger { width: 50px; height: 50px; font-size: 20px; bottom: 15px; right: 15px; }
-      .fab-container { bottom: 80px; right: 15px; }
-      .fab { width: 45px; height: 45px; font-size: 18px; }
-    }
+   @media (max-width: 768px) {
+     #ui-layer { padding: 15px; max-height: 90vh; }
+     textarea#msg-input { height: 100px; flex-basis: 100%; font-size: 13px; }
+     .controls { flex-direction: row; flex-wrap: wrap; }
+     .controls button { flex: 1; min-width: 120px; }
+     #secret-trigger { width: 50px; height: 50px; font-size: 20px; bottom: 15px; right: 15px; }
+     .fab-container { bottom: 80px; right: 15px; }
+     .fab { width: 45px; height: 45px; font-size: 18px; }
+   }
 
-    .flex-row-wrap {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-    .label-group {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 8px 15px;
-      border-radius: 10px;
-      border: 1px solid var(--secondary-color);
-    }
-    .label-group span { font-weight: 700; color: var(--text-color); white-space: nowrap; }
+   .flex-row-wrap {
+     display: flex;
+     gap: 12px;
+     align-items: center;
+     margin-top: 15px;
+     flex-wrap: wrap;
+   }
+   .label-group {
+     display: flex;
+     gap: 10px;
+     align-items: center;
+     background: rgba(0, 0, 0, 0.4);
+     padding: 8px 15px;
+     border-radius: 10px;
+     border: 1px solid var(--secondary-color);
+   }
+   .label-group span { font-weight: 700; color: var(--text-color); white-space: nowrap; }
 
-    .collapsible {
-      border: 2px solid var(--secondary-color);
-      border-radius: 12px;
-      margin-top: 15px;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.3);
-    }
-    .collapsible-header {
-      background: linear-gradient(90deg, rgba(0,255,204,0.1), transparent);
-      padding: 15px 20px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 700;
-      transition: all 0.3s;
-    }
-    .collapsible-header:hover { background: linear-gradient(90deg, rgba(0,255,204,0.2), transparent); }
-    .collapsible-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s;
-    }
-    .collapsible.open .collapsible-content { max-height: 600px; padding: 20px; }
-    .collapsible-icon { transition: transform 0.3s; font-size: 12px; }
-    .collapsible.open .collapsible-icon { transform: rotate(180deg); }
+   .collapsible {
+     border: 2px solid var(--secondary-color);
+     border-radius: 12px;
+     margin-top: 15px;
+     overflow: hidden;
+     background: rgba(0, 0, 0, 0.3);
+   }
+   .collapsible-header {
+     background: linear-gradient(90deg, rgba(0,255,204,0.1), transparent);
+     padding: 15px 20px;
+     cursor: pointer;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     font-weight: 700;
+     transition: all 0.3s;
+   }
+   .collapsible-header:hover { background: linear-gradient(90deg, rgba(0,255,204,0.2), transparent); }
+   .collapsible-content {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.4s;
+   }
+   .collapsible.open .collapsible-content { max-height: 600px; padding: 20px; }
+   .collapsible-icon { transition: transform 0.3s; font-size: 12px; }
+   .collapsible.open .collapsible-icon { transform: rotate(180deg); }
 
-    input[type="range"] {
-      -webkit-appearance: none;
-      width: 120px;
-      height: 8px;
-      background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-      border-radius: 4px;
-      outline: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      background: var(--primary-color);
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 0 15px var(--primary-color);
-    }
+   input[type="range"] {
+     -webkit-appearance: none;
+     width: 120px;
+     height: 8px;
+     background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+     border-radius: 4px;
+     outline: none;
+   }
+   input[type="range"]::-webkit-slider-thumb {
+     -webkit-appearance: none;
+     width: 20px;
+     height: 20px;
+     background: var(--primary-color);
+     border-radius: 50%;
+     cursor: pointer;
+     box-shadow: 0 0 15px var(--primary-color);
+   }
 
-    .toggle-switch {
-      position: relative;
-      width: 50px;
-      height: 26px;
-      background: var(--secondary-color);
-      border-radius: 13px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .toggle-switch.active { background: var(--primary-color); }
-    .toggle-switch::after {
-      content: '';
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      background: white;
-      border-radius: 50%;
-      top: 2px;
-      left: 2px;
-      transition: transform 0.3s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    .toggle-switch.active::after { transform: translateX(24px); }
+   .toggle-switch {
+     position: relative;
+     width: 50px;
+     height: 26px;
+     background: var(--secondary-color);
+     border-radius: 13px;
+     cursor: pointer;
+     transition: background 0.3s;
+   }
+   .toggle-switch.active { background: var(--primary-color); }
+   .toggle-switch::after {
+     content: '';
+     position: absolute;
+     width: 22px;
+     height: 22px;
+     background: white;
+     border-radius: 50%;
+     top: 2px;
+     left: 2px;
+     transition: transform 0.3s;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+   }
+   .toggle-switch.active::after { transform: translateX(24px); }
 
-    .sr-only { position: absolute; left: -9999px; }
-  </style>
+   .sr-only { position: absolute; left: -9999px; }
+ </style>
 </head>
 <body>
 
-  <div id="ui-overlay"></div>
+ <div id="ui-overlay"></div>
 
-  <div id="ui-layer" aria-hidden="true">
-    <button id="ui-close-btn" title="إغلاق">✕</button>
-    
-    <div id="ui-row">
-      <textarea id="msg-input" placeholder="بيانات الشبكة السيبرانية تتدفق هنا..." aria-label="نص Gist الخام"></textarea>
-      <div class="controls">
-        <button id="btn-update" class="primary">🔄 تحديث</button>
-        <button id="btn-copy-raw" title="نسخ RAW URL">📋 نسخ RAW</button>
-        <button id="btn-copy-link" title="نسخ رابط الصفحة">🔗 نسخ الرابط</button>
-        <button id="btn-export-png" class="success">💾 حفظ PNG</button>
-        <button id="btn-share">📤 مشاركة</button>
-        <button id="btn-fullscreen">⛶ ملء الشاشة</button>
-      </div>
-    </div>
+ <div id="ui-layer" aria-hidden="true">
+   <button id="ui-close-btn" title="إغلاق">✕</button>
+   
+   <div id="ui-row">
+     <textarea id="msg-input" placeholder="بيانات الشبكة السيبرانية تتدفق هنا..." aria-label="نص Gist الخام"></textarea>
+     <div class="controls">
+       <button id="btn-update" class="primary">🔄 تحديث</button>
+       <button id="btn-copy-raw" title="نسخ RAW URL">📋 نسخ RAW</button>
+       <button id="btn-copy-link" title="نسخ رابط الصفحة">🔗 نسخ الرابط</button>
+       <button id="btn-export-png" class="success">💾 حفظ PNG</button>
+       <button id="btn-share">📤 مشاركة</button>
+       <button id="btn-fullscreen">⛶ ملء الشاشة</button>
+     </div>
+   </div>
 
-    <div class="flex-row-wrap">
-      <label class="label-group">
-        <span>🎨 الخلفية:</span>
-        <select id="bg-select">
-          <option value="cyberweb">شبكة سيبرانية</option>
-          <option value="particles">جسيمات 3D</option>
-          <option value="matrix">مطرقة ماتريكس</option>
-          <option value="aurora">شفق قطبي</option>
-          <option value="fireflies">يراعات</option>
-          <option value="gradient">تدرج متحرك</option>
-          <option value="void">فراغ</option>
-          <option value="image">صورة مخصصة</option>
-        </select>
-      </label>
+   <div class="flex-row-wrap">
+     <label class="label-group">
+       <span>🎨 الخلفية:</span>
+       <select id="bg-select">
+         <option value="cyberweb">شبكة سيبرانية</option>
+         <option value="particles">جسيمات 3D</option>
+         <option value="matrix">مطرقة ماتريكس</option>
+         <option value="aurora">شفق قطبي</option>
+         <option value="fireflies">يراعات</option>
+         <option value="gradient">تدرج متحرك</option>
+         <option value="void">فراغ</option>
+         <option value="image">صورة مخصصة</option>
+       </select>
+     </label>
 
-      <label class="label-group">
-        <span>🌈 السمة:</span>
-        <select id="theme-select">
-          <option value="cyan">سماوي نيون</option>
-          <option value="green">أخضر نيون</option>
-          <option value="purple">بنفسجي نيون</option>
-          <option value="red">أحمر نيون</option>
-          <option value="gold">ذهبي نيون</option>
-          <option value="pink">وردي نيون</option>
-          <option value="blue">أزرق نيون</option>
-          <option value="orange">برتقالي نيون</option>
-        </select>
-      </label>
+     <label class="label-group">
+       <span>🌈 السمة:</span>
+       <select id="theme-select">
+         <option value="cyan">سماوي نيون</option>
+         <option value="green">أخضر نيون</option>
+         <option value="purple">بنفسجي نيون</option>
+         <option value="red">أحمر نيون</option>
+         <option value="gold">ذهبي نيون</option>
+         <option value="pink">وردي نيون</option>
+         <option value="blue">أزرق نيون</option>
+         <option value="orange">برتقالي نيون</option>
+       </select>
+     </label>
 
-      <label class="label-group">
-        <span>✍️ الخط:</span>
-        <select id="font-select">
-          <option value="electrolize">Electrolize</option>
-          <option value="sharetechmono">Share Tech Mono</option>
-          <option value="michroma">Michroma</option>
-          <option value="cairo">Cairo (عربي)</option>
-          <option value="tajawal">Tajawal (عربي)</option>
-        </select>
-      </label>
+     <label class="label-group">
+       <span>✍️ الخط:</span>
+       <select id="font-select">
+         <option value="electrolize">Electrolize</option>
+         <option value="sharetechmono">Share Tech Mono</option>
+         <option value="michroma">Michroma</option>
+         <option value="cairo">Cairo (عربي)</option>
+         <option value="tajawal">Tajawal (عربي)</option>
+       </select>
+     </label>
 
-      <label class="label-group">
-        <span>📁 رفع:</span>
-        <input id="img-uploader" type="file" accept="image/*"/>
-      </label>
+     <label class="label-group">
+       <span>📁 رفع:</span>
+       <input id="img-uploader" type="file" accept="image/*"/>
+     </label>
 
-      <button id="btn-clear-image">🗑️ مسح الصورة</button>
-      <button id="btn-clear-all" class="danger">♻️ مسح الكل</button>
-    </div>
+     <button id="btn-clear-image">🗑️ مسح الصورة</button>
+     <button id="btn-clear-all" class="danger">♻️ مسح الكل</button>
+   </div>
 
-    <div class="collapsible open" id="effects-section">
-      <div class="collapsible-header">
-        <span>✨ المؤثرات البصرية المتقدمة</span>
-        <span class="collapsible-icon">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <div class="flex-row-wrap">
-          <label class="label-group"><span>Scanlines:</span><input type="range" id="scanline-slider" min="0" max="100" value="12"></label>
-          <label class="label-group"><span>Vignette:</span><input type="range" id="vignette-slider" min="0" max="100" value="70"></label>
-          <label class="label-group"><span>Grain:</span><input type="range" id="grain-slider" min="0" max="100" value="4"></label>
-          <label class="label-group"><span>Glow:</span><input type="range" id="glow-slider" min="0" max="100" value="50"></label>
-          <label class="label-group"><span>Glitch:</span><div class="toggle-switch active" id="glitch-toggle"></div></label>
-        </div>
-      </div>
-    </div>
+   <div class="collapsible open" id="effects-section">
+     <div class="collapsible-header">
+       <span>✨ المؤثرات البصرية المتقدمة</span>
+       <span class="collapsible-icon">▼</span>
+     </div>
+     <div class="collapsible-content">
+       <div class="flex-row-wrap">
+         <label class="label-group"><span>Scanlines:</span><input type="range" id="scanline-slider" min="0" max="100" value="12"></label>
+         <label class="label-group"><span>Vignette:</span><input type="range" id="vignette-slider" min="0" max="100" value="70"></label>
+         <label class="label-group"><span>Grain:</span><input type="range" id="grain-slider" min="0" max="100" value="4"></label>
+         <label class="label-group"><span>Glow:</span><input type="range" id="glow-slider" min="0" max="100" value="50"></label>
+         <label class="label-group"><span>Glitch:</span><div class="toggle-switch active" id="glitch-toggle"></div></label>
+       </div>
+     </div>
+   </div>
 
-    <div class="collapsible" id="filters-section">
-      <div class="collapsible-header">
-        <span>🖼️ فلاتر الصورة المتقدمة</span>
-        <span class="collapsible-icon">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <div class="flex-row-wrap">
-          <label class="label-group"><span>سطوع:</span><input type="range" id="brightness-slider" min="0" max="200" value="100"></label>
-          <label class="label-group"><span>تباين:</span><input type="range" id="contrast-slider" min="0" max="200" value="120"></label>
-          <label class="label-group"><span>تشبع:</span><input type="range" id="saturation-slider" min="0" max="200" value="100"></label>
-          <label class="label-group"><span>ضبابية:</span><input type="range" id="blur-slider" min="0" max="20" value="0"></label>
-          <label class="label-group"><span>شفافية:</span><input type="range" id="opacity-slider" min="0" max="100" value="100"></label>
-          <button id="btn-reset-filters">إعادة تعيين</button>
-        </div>
-      </div>
-    </div>
-  </div>
+   <div class="collapsible" id="filters-section">
+     <div class="collapsible-header">
+       <span>🖼️ فلاتر الصورة المتقدمة</span>
+       <span class="collapsible-icon">▼</span>
+     </div>
+     <div class="collapsible-content">
+       <div class="flex-row-wrap">
+         <label class="label-group"><span>سطوع:</span><input type="range" id="brightness-slider" min="0" max="200" value="100"></label>
+         <label class="label-group"><span>تباين:</span><input type="range" id="contrast-slider" min="0" max="200" value="120"></label>
+         <label class="label-group"><span>تشبع:</span><input type="range" id="saturation-slider" min="0" max="200" value="100"></label>
+         <label class="label-group"><span>ضبابية:</span><input type="range" id="blur-slider" min="0" max="20" value="0"></label>
+         <label class="label-group"><span>شفافية:</span><input type="range" id="opacity-slider" min="0" max="100" value="100"></label>
+         <button id="btn-reset-filters">إعادة تعيين</button>
+       </div>
+     </div>
+   </div>
+ </div>
 
-  <div id="readable-content" role="article" aria-live="polite">CYBER-NEXUS SYSTEM INITIALIZING...</div>
+ <div id="readable-content" role="article" aria-live="polite">CYBER-NEXUS SYSTEM INITIALIZING...</div>
 
-  <canvas id="c" aria-label="عرض Cyber-Nexus"></canvas>
+ <canvas id="c" aria-label="عرض Cyber-Nexus"></canvas>
 
-  <div id="effects-layer">
-    <div class="scanlines"></div>
-    <div class="vignette"></div>
-    <div class="grain"></div>
-  </div>
+ <div id="effects-layer">
+   <div class="scanlines"></div>
+   <div class="vignette"></div>
+   <div class="grain"></div>
+ </div>
 
-  <div id="drop-zone">
-    <div id="drop-zone-icon">📸</div>
-    <div id="drop-zone-text">أسقط الصورة هنا</div>
-  </div>
+ <div id="drop-zone">
+   <div id="drop-zone-icon">📸</div>
+   <div id="drop-zone-text">أسقط الصورة هنا</div>
+ </div>
 
-  <div class="fab-container">
-    <button class="fab primary" id="fab-export" title="حفظ صورة">💾</button>
-    <button class="fab" id="fab-fullscreen" title="ملء الشاشة">⛶</button>
-  </div>
+ <div class="fab-container">
+   <button class="fab primary" id="fab-export" title="حفظ صورة">💾</button>
+   <button class="fab" id="fab-fullscreen" title="ملء الشاشة">⛶</button>
+ </div>
 
-  <div id="secret-trigger" role="button" aria-label="فتح الإعدادات" title="فتح/إغلاق الإعدادات (Ctrl+Shift+A)"></div>
+ <div id="secret-trigger" role="button" aria-label="فتح الإعدادات" title="فتح/إغلاق الإعدادات (Ctrl+Shift+A)"></div>
 
-  <div id="error-overlay" aria-hidden="true">
-    <div id="error-overlay-content">
-      <h2 style="font-size: 42px; color: var(--error-color); margin-bottom: 20px; text-shadow: 0 0 30px var(--error-color);">⚠️ خطأ في الاتصال</h2>
-      <p id="error-message" style="font-size: 18px; color: #ffcccc; margin-bottom: 30px;"></p>
-      <button id="btn-retry-fetch" class="primary" style="padding: 15px 40px; font-size: 16px;">🔄 إعادة المحاولة</button>
-    </div>
-  </div>
+ <div id="error-overlay" aria-hidden="true">
+   <div id="error-overlay-content">
+     <h2 style="font-size: 42px; color: var(--error-color); margin-bottom: 20px; text-shadow: 0 0 30px var(--error-color);">⚠️ خطأ في الاتصال</h2>
+     <p id="error-message" style="font-size: 18px; color: #ffcccc; margin-bottom: 30px;"></p>
+     <button id="btn-retry-fetch" class="primary" style="padding: 15px 40px; font-size: 16px;">🔄 إعادة المحاولة</button>
+   </div>
+ </div>
 
-  <div id="loading-indicator" aria-hidden="true">
-    <div class="loader-ring"></div>
-    <span id="countdown-timer"></span>
-    <span id="battery-status"></span>
-    <span id="fps-counter"></span>
-    <span id="image-status"></span>
-  </div>
+ <div id="loading-indicator" aria-hidden="true">
+   <div class="loader-ring"></div>
+   <span id="countdown-timer"></span>
+   <span id="battery-status"></span>
+   <span id="fps-counter"></span>
+   <span id="image-status"></span>
+ </div>
 
-  <div id="toast"></div>
-  <div class="sr-only" role="status" id="aria-status">جاهز</div>
+ <div id="toast"></div>
+ <div class="sr-only" role="status" id="aria-status">جاهز</div>
 
 <script>
 /* ==================== CYBER-NEXUS V3.0 PRO - FIXED ==================== */
 /* المنطق الأصلي محفوظ + تحسينات متقدمة */
 
 const CONSTANTS = {
-  RAW_URL: "https://gist.githubusercontent.com/tombad8900/02c19d224a9d2cafc91bf918c81e27a6/raw/",
-  FETCH_INTERVAL: 10 * 60 * 1000, // 10 دقائق
-  FETCH_TIMEOUT: 15 * 1000, // 15 ثانية
-  DPR_MAX: 2
+ RAW_URL: "https://gist.githubusercontent.com/tombad8900/02c19d224a9d2cafc91bf918c81e27a6/raw/",
+ FETCH_INTERVAL: 10 * 60 * 1000, // 10 دقائق
+ FETCH_TIMEOUT: 15 * 1000, // 15 ثانية
+ DPR_MAX: 2
 };
 
 const THEMES = {
-  cyan: { primary: '#00ffcc', secondary: '#007766', border: 'rgba(0, 255, 204, 0.4)' },
-  green: { primary: '#00ff41', secondary: '#007700', border: 'rgba(0, 255, 65, 0.4)' },
-  purple: { primary: '#bf00ff', secondary: '#660099', border: 'rgba(191, 0, 255, 0.4)' },
-  red: { primary: '#ff0040', secondary: '#990020', border: 'rgba(255, 0, 64, 0.4)' },
-  gold: { primary: '#ffd700', secondary: '#b8860b', border: 'rgba(255, 215, 0, 0.4)' },
-  pink: { primary: '#ff1493', secondary: '#c71585', border: 'rgba(255, 20, 147, 0.4)' },
-  blue: { primary: '#00bfff', secondary: '#006699', border: 'rgba(0, 191, 255, 0.4)' },
-  orange: { primary: '#ff6600', secondary: '#cc5200', border: 'rgba(255, 102, 0, 0.4)' }
+ cyan: { primary: '#00ffcc', secondary: '#007766', border: 'rgba(0, 255, 204, 0.4)' },
+ green: { primary: '#00ff41', secondary: '#007700', border: 'rgba(0, 255, 65, 0.4)' },
+ purple: { primary: '#bf00ff', secondary: '#660099', border: 'rgba(191, 0, 255, 0.4)' },
+ red: { primary: '#ff0040', secondary: '#990020', border: 'rgba(255, 0, 64, 0.4)' },
+ gold: { primary: '#ffd700', secondary: '#b8860b', border: 'rgba(255, 215, 0, 0.4)' },
+ pink: { primary: '#ff1493', secondary: '#c71585', border: 'rgba(255, 20, 147, 0.4)' },
+ blue: { primary: '#00bfff', secondary: '#006699', border: 'rgba(0, 191, 255, 0.4)' },
+ orange: { primary: '#ff6600', secondary: '#cc5200', border: 'rgba(255, 102, 0, 0.4)' }
 };
 
 const FONTS = {
-  electrolize: "'Electrolize', sans-serif",
-  sharetechmono: "'Share Tech Mono', monospace",
-  michroma: "'Michroma', sans-serif",
-  cairo: "'Cairo', sans-serif",
-  tajawal: "'Tajawal', sans-serif"
+ electrolize: "'Electrolize', sans-serif",
+ sharetechmono: "'Share Tech Mono', monospace",
+ michroma: "'Michroma', sans-serif",
+ cairo: "'Cairo', sans-serif",
+ tajawal: "'Tajawal', sans-serif"
 };
 
 // ==================== URL STATE MANAGEMENT (مضغوط) ====================
 
 // ترميز الإعدادات في 5 أرقام: scanlines,vignette,grain,glow,glitch(0/1)
 function encodeEffects(e) {
-  return [e.scanlines, e.vignette, e.grain, e.glow, e.glitch ? 1 : 0].join(',');
+ return [e.scanlines, e.vignette, e.grain, e.glow, e.glitch ? 1 : 0].join(',');
 }
 
 // ترميز الفلاتر في 5 أرقام: brightness,contrast,saturation,blur,opacity
 function encodeFilters(f) {
-  return [f.brightness, f.contrast, f.saturation, f.blur, f.opacity].join(',');
+ return [f.brightness, f.contrast, f.saturation, f.blur, f.opacity].join(',');
 }
 
 function decodeEffects(str) {
-  const [s, v, g, gl, gi] = str.split(',').map(Number);
-  return { scanlines: s || 12, vignette: v || 70, grain: g || 4, glow: gl || 50, glitch: gi === 1 };
+ const [s, v, g, gl, gi] = str.split(',').map(Number);
+ return { scanlines: s || 12, vignette: v || 70, grain: g || 4, glow: gl || 50, glitch: gi === 1 };
 }
 
 function decodeFilters(str) {
-  const [b, c, s, bl, o] = str.split(',').map(Number);
-  return { brightness: b || 100, contrast: c || 120, saturation: s || 100, blur: bl || 0, opacity: o || 100 };
+ const [b, c, s, bl, o] = str.split(',').map(Number);
+ return { brightness: b || 100, contrast: c || 120, saturation: s || 100, blur: bl || 0, opacity: o || 100 };
 }
 
 function saveToURL(key, value) {
-  const url = new URL(window.location.href);
-  if (value === null || value === '' || value === 'cyberweb' || value === 'cyan' || value === 'electrolize') {
-    url.searchParams.delete(key); // حذف القيم الافتراضية لتقليل الحجم
-  } else {
-    url.searchParams.set(key, value);
-  }
-  window.history.replaceState({}, '', url);
+ const url = new URL(window.location.href);
+ if (value === null || value === '' || value === 'cyberweb' || value === 'cyan' || value === 'electrolize') {
+   url.searchParams.delete(key); // حذف القيم الافتراضية لتقليل الحجم
+ } else {
+   url.searchParams.set(key, value);
+ }
+ window.history.replaceState({}, '', url);
 }
 
 function getFromURL(key, defaultVal) {
-  const val = new URLSearchParams(window.location.search).get(key);
-  return val !== null ? val : defaultVal;
+ const val = new URLSearchParams(window.location.search).get(key);
+ return val !== null ? val : defaultVal;
 }
 
 // ==================== STATE ====================
 const state = {
-  canvas: null, ctx: null,
-  w: 0, h: 0, dpr: 1,
-  bgMode: 'cyberweb',
-  theme: 'cyan',
-  font: 'electrolize',
-  lines: [],
-  displayedText: [],
-  fullText: '',
-  textRevealIndex: 0,
-  uploadedImage: null,
-  imageLoaded: false,
-  glitchIntensity: 0,
-  mouse: { x: 0, y: 0, active: false },
-  particles: [],
-  matrixDrops: [],
-  fireflies: [],
-  cyberWebNodes: [],
-  animationId: null,
-  fetchTimerId: null,
-  lastFetchTime: 0,
-  lastFetchOK: true,
-  inFlightFetch: null,
-  fps: 60,
-  effects: { scanlines: 12, vignette: 70, grain: 4, glow: 50, glitch: true },
-  filters: { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100 },
-  isAdmin: false
+ canvas: null, ctx: null,
+ w: 0, h: 0, dpr: 1,
+ bgMode: 'cyberweb',
+ theme: 'cyan',
+ font: 'electrolize',
+ lines: [],
+ displayedText: [],
+ fullText: '',
+ textRevealIndex: 0,
+ uploadedImage: null,
+ imageLoaded: false,
+ glitchIntensity: 0,
+ mouse: { x: 0, y: 0, active: false },
+ particles: [],
+ matrixDrops: [],
+ fireflies: [],
+ cyberWebNodes: [],
+ animationId: null,
+ fetchTimerId: null,
+ lastFetchTime: 0,
+ lastFetchOK: true,
+ inFlightFetch: null,
+ fps: 60,
+ effects: { scanlines: 12, vignette: 70, grain: 4, glow: 50, glitch: true },
+ filters: { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100 },
+ isAdmin: false
 };
 
 // ==================== DOM ELEMENTS ====================
 const elements = {};
 
 function cacheElements() {
-  const ids = [
-    'ui-layer', 'ui-overlay', 'ui-close-btn', 'msg-input', 'readable-content',
-    'btn-update', 'btn-copy-raw', 'btn-copy-link', 'btn-export-png', 'btn-share', 'btn-fullscreen',
-    'bg-select', 'theme-select', 'font-select', 'img-uploader',
-    'btn-clear-image', 'btn-clear-all', 'secret-trigger',
-    'btn-retry-fetch', 'error-overlay', 'error-message',
-    'loading-indicator', 'countdown-timer', 'battery-status', 'fps-counter', 'image-status',
-    'drop-zone', 'toast', 'aria-status',
-    'scanline-slider', 'vignette-slider', 'grain-slider', 'glow-slider', 'glitch-toggle',
-    'brightness-slider', 'contrast-slider', 'saturation-slider', 'blur-slider', 'opacity-slider', 'btn-reset-filters',
-    'fab-export', 'fab-fullscreen'
-  ];
-  ids.forEach(id => elements[id] = document.getElementById(id));
+ const ids = [
+   'ui-layer', 'ui-overlay', 'ui-close-btn', 'msg-input', 'readable-content',
+   'btn-update', 'btn-copy-raw', 'btn-copy-link', 'btn-export-png', 'btn-share', 'btn-fullscreen',
+   'bg-select', 'theme-select', 'font-select', 'img-uploader',
+   'btn-clear-image', 'btn-clear-all', 'secret-trigger',
+   'btn-retry-fetch', 'error-overlay', 'error-message',
+   'loading-indicator', 'countdown-timer', 'battery-status', 'fps-counter', 'image-status',
+   'drop-zone', 'toast', 'aria-status',
+   'scanline-slider', 'vignette-slider', 'grain-slider', 'glow-slider', 'glitch-toggle',
+   'brightness-slider', 'contrast-slider', 'saturation-slider', 'blur-slider', 'opacity-slider', 'btn-reset-filters',
+   'fab-export', 'fab-fullscreen'
+ ];
+ ids.forEach(id => elements[id] = document.getElementById(id));
 }
 
 // ==================== UTILITY ====================
 function $(id) { return document.getElementById(id); }
 function showToast(message, duration = 3000) {
-  const toast = $('toast');
-  toast.textContent = message;
-  toast.classList.add('show');
-  if (navigator.vibrate) navigator.vibrate(50);
-  setTimeout(() => toast.classList.remove('show'), duration);
+ const toast = $('toast');
+ toast.textContent = message;
+ toast.classList.add('show');
+ if (navigator.vibrate) navigator.vibrate(50);
+ setTimeout(() => toast.classList.remove('show'), duration);
 }
 function setStatus(text) { $('aria-status').textContent = text; }
 function now() { return performance.now(); }
@@ -762,13 +762,13 @@ function safeTextForMeta(text) { return (text || '').replace(/[<>]/g, ''); }
 
 // ==================== LOCAL STORAGE (المنطق الأصلي) ====================
 function saveToStorage(key, value) {
-  try { localStorage.setItem('cybernexus_' + key, value); } catch(e) {}
+ try { localStorage.setItem('cybernexus_' + key, value); } catch(e) {}
 }
 function getFromStorage(key, defaultVal) {
-  try { return localStorage.getItem('cybernexus_' + key) || defaultVal; } catch(e) { return defaultVal; }
+ try { return localStorage.getItem('cybernexus_' + key) || defaultVal; } catch(e) { return defaultVal; }
 }
 function removeFromStorage(key) {
-  try { localStorage.removeItem('cybernexus_' + key); } catch(e) {}
+ try { localStorage.removeItem('cybernexus_' + key); } catch(e) {}
 }
 
 // ==================== INDEXEDDB FOR IMAGES (تحسين جديد) ====================
@@ -777,1027 +777,1089 @@ const DB_VERSION = 1;
 let db = null;
 
 function initDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => { db = request.result; resolve(db); };
-    request.onupgradeneeded = (e) => {
-      if (!e.target.result.objectStoreNames.contains('images')) {
-        e.target.result.createObjectStore('images', { keyPath: 'id' });
-      }
-    };
-  });
+ return new Promise((resolve, reject) => {
+   const request = indexedDB.open(DB_NAME, DB_VERSION);
+   request.onerror = () => reject(request.error);
+   request.onsuccess = () => { db = request.result; resolve(db); };
+   request.onupgradeneeded = (e) => {
+     if (!e.target.result.objectStoreNames.contains('images')) {
+       e.target.result.createObjectStore('images', { keyPath: 'id' });
+     }
+   };
+ });
 }
 
 async function saveImageToDB(imageData) {
-  if (!db) await initDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(['images'], 'readwrite');
-    const store = tx.objectStore('images');
-    store.put({ id: 'user-image', data: imageData, timestamp: Date.now() });
-    tx.oncomplete = resolve;
-    tx.onerror = () => reject(tx.error);
-  });
+ if (!db) await initDB();
+ return new Promise((resolve, reject) => {
+   const tx = db.transaction(['images'], 'readwrite');
+   const store = tx.objectStore('images');
+   store.put({ id: 'user-image', data: imageData, timestamp: Date.now() });
+   tx.oncomplete = resolve;
+   tx.onerror = () => reject(tx.error);
+ });
 }
 
 async function loadImageFromDB() {
-  if (!db) await initDB();
-  return new Promise((resolve) => {
-    const tx = db.transaction(['images'], 'readonly');
-    const store = tx.objectStore('images');
-    const req = store.get('user-image');
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => resolve(null);
-  });
+ if (!db) await initDB();
+ return new Promise((resolve) => {
+   const tx = db.transaction(['images'], 'readonly');
+   const store = tx.objectStore('images');
+   const req = store.get('user-image');
+   req.onsuccess = () => resolve(req.result);
+   req.onerror = () => resolve(null);
+ });
 }
 
 async function clearImageDB() {
-  if (!db) await initDB();
-  return new Promise((resolve) => {
-    const tx = db.transaction(['images'], 'readwrite');
-    const store = tx.objectStore('images');
-    store.delete('user-image');
-    tx.oncomplete = resolve;
-  });
+ if (!db) await initDB();
+ return new Promise((resolve) => {
+   const tx = db.transaction(['images'], 'readwrite');
+   const store = tx.objectStore('images');
+   store.delete('user-image');
+   tx.oncomplete = resolve;
+ });
 }
 
 // ==================== INITIALIZATION ====================
 async function init() {
-  state.canvas = $('c');
-  state.ctx = state.canvas.getContext('2d', { alpha: false, desynchronized: true }) || state.canvas.getContext('2d');
-  
-  cacheElements();
-  setupEventListeners();
-  resizeCanvas();
-  
-  await initDB();
-  
-  initCyberWeb();
-  initParticles();
-  initMatrixDrops();
-  initFireflies();
-  
-  restorePreferences();
-  updateEffectsCSS();
-  
-  // بدء الجلب الدوري (المنطق الأصلي)
-  fetchPayload(false);
-  state.fetchTimerId = setInterval(() => fetchPayload(false), CONSTANTS.FETCH_INTERVAL);
-  
-  // تحديث العداد
-  setInterval(updateCountdown, 1000);
-  updateBatteryStatus();
-  setInterval(updateBatteryStatus, 5000);
-  
-  requestAnimationFrame(renderLoop);
-  setStatus('جاهز');
+ state.canvas = $('c');
+ state.ctx = state.canvas.getContext('2d', { alpha: false, desynchronized: true }) || state.canvas.getContext('2d');
+ 
+ cacheElements();
+ setupEventListeners();
+ resizeCanvas();
+ 
+ await initDB();
+ 
+ initCyberWeb();
+ initParticles();
+ initMatrixDrops();
+ initFireflies();
+ 
+ restorePreferences();
+ updateEffectsCSS();
+ 
+ // بدء الجلب الدوري (المنطق الأصلي)
+ fetchPayload(false);
+ state.fetchTimerId = setInterval(() => fetchPayload(false), CONSTANTS.FETCH_INTERVAL);
+ 
+ // تحديث العداد
+ setInterval(updateCountdown, 1000);
+ updateBatteryStatus();
+ setInterval(updateBatteryStatus, 5000);
+ 
+ requestAnimationFrame(renderLoop);
+ setStatus('جاهز');
 }
 
 // ==================== CANVAS ====================
 function resizeCanvas() {
-  state.dpr = Math.min(window.devicePixelRatio || 1, CONSTANTS.DPR_MAX);
-  state.w = window.innerWidth;
-  state.h = window.innerHeight;
-  state.canvas.style.width = state.w + 'px';
-  state.canvas.style.height = state.h + 'px';
-  state.canvas.width = Math.floor(state.w * state.dpr);
-  state.canvas.height = Math.floor(state.h * state.dpr);
-  if (typeof state.ctx.setTransform === 'function') {
-    state.ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
-  } else {
-    state.ctx.scale(state.dpr, state.dpr);
-  }
+ state.dpr = Math.min(window.devicePixelRatio || 1, CONSTANTS.DPR_MAX);
+ state.w = window.innerWidth;
+ state.h = window.innerHeight;
+ state.canvas.style.width = state.w + 'px';
+ state.canvas.style.height = state.h + 'px';
+ state.canvas.width = Math.floor(state.w * state.dpr);
+ state.canvas.height = Math.floor(state.h * state.dpr);
+ if (typeof state.ctx.setTransform === 'function') {
+   state.ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+ } else {
+   state.ctx.scale(state.dpr, state.dpr);
+ }
 }
 
 // ==================== BACKGROUND SYSTEMS ====================
 function initCyberWeb() {
-  state.cyberWebNodes = [];
-  for (let i = 0; i < 50; i++) {
-    state.cyberWebNodes.push({
-      x: Math.random() * state.w,
-      y: Math.random() * state.h,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 1.5 + 1,
-      alpha: Math.random() * 0.3 + 0.1
-    });
-  }
+ state.cyberWebNodes = [];
+ for (let i = 0; i < 50; i++) {
+   state.cyberWebNodes.push({
+     x: Math.random() * state.w,
+     y: Math.random() * state.h,
+     vx: (Math.random() - 0.5) * 0.5,
+     vy: (Math.random() - 0.5) * 0.5,
+     radius: Math.random() * 1.5 + 1,
+     alpha: Math.random() * 0.3 + 0.1
+   });
+ }
 }
 
 function initParticles() {
-  state.particles = [];
-  const count = state.w < 768 ? 40 : 80;
-  for (let i = 0; i < count; i++) {
-    state.particles.push({
-      x: Math.random() * state.w,
-      y: Math.random() * state.h,
-      z: Math.random() * 2 + 0.5,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      life: Math.random(),
-      pulse: Math.random() * Math.PI * 2
-    });
-  }
+ state.particles = [];
+ const count = state.w < 768 ? 40 : 80;
+ for (let i = 0; i < count; i++) {
+   state.particles.push({
+     x: Math.random() * state.w,
+     y: Math.random() * state.h,
+     z: Math.random() * 2 + 0.5,
+     vx: (Math.random() - 0.5) * 0.8,
+     vy: (Math.random() - 0.5) * 0.8,
+     life: Math.random(),
+     pulse: Math.random() * Math.PI * 2
+   });
+ }
 }
 
 function initMatrixDrops() {
-  state.matrixDrops = [];
-  const cols = Math.floor(state.w / 20);
-  for (let i = 0; i < cols; i++) {
-    state.matrixDrops.push({
-      x: i * 20,
-      y: Math.random() * state.h,
-      speed: Math.random() * 3 + 2,
-      chars: generateMatrixChars(),
-      charIndex: 0
-    });
-  }
+ state.matrixDrops = [];
+ const cols = Math.floor(state.w / 20);
+ for (let i = 0; i < cols; i++) {
+   state.matrixDrops.push({
+     x: i * 20,
+     y: Math.random() * state.h,
+     speed: Math.random() * 3 + 2,
+     chars: generateMatrixChars(),
+     charIndex: 0
+   });
+ }
 }
 
 function initFireflies() {
-  state.fireflies = [];
-  const count = state.w < 768 ? 25 : 50;
-  for (let i = 0; i < count; i++) {
-    state.fireflies.push({
-      x: Math.random() * state.w,
-      y: Math.random() * state.h,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random(),
-      pulse: Math.random() * Math.PI * 2
-    });
-  }
+ state.fireflies = [];
+ const count = state.w < 768 ? 25 : 50;
+ for (let i = 0; i < count; i++) {
+   state.fireflies.push({
+     x: Math.random() * state.w,
+     y: Math.random() * state.h,
+     vx: (Math.random() - 0.5) * 0.5,
+     vy: (Math.random() - 0.5) * 0.5,
+     radius: Math.random() * 2 + 1,
+     alpha: Math.random(),
+     pulse: Math.random() * Math.PI * 2
+   });
+ }
 }
 
 function generateMatrixChars() {
-  const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
-  return Array(20).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]);
+ const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
+ return Array(20).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]);
 }
 
 // ==================== DRAWING ====================
 function drawBackground() {
-  const { ctx, w, h } = state;
-  ctx.fillStyle = getThemeColor('--bg-color');
-  ctx.fillRect(0, 0, w, h);
-  
-  switch(state.bgMode) {
-    case 'cyberweb': drawCyberWeb(); break;
-    case 'particles': drawParticles3D(); break;
-    case 'matrix': drawMatrixRain(); break;
-    case 'aurora': drawAurora(); break;
-    case 'fireflies': drawFireflies(); break;
-    case 'gradient': drawAnimatedGradient(); break;
-    case 'image': drawUploadedImage(); break;
-  }
+ const { ctx, w, h } = state;
+ ctx.fillStyle = getThemeColor('--bg-color');
+ ctx.fillRect(0, 0, w, h);
+ 
+ switch(state.bgMode) {
+   case 'cyberweb': drawCyberWeb(); break;
+   case 'particles': drawParticles3D(); break;
+   case 'matrix': drawMatrixRain(); break;
+   case 'aurora': drawAurora(); break;
+   case 'fireflies': drawFireflies(); break;
+   case 'gradient': drawAnimatedGradient(); break;
+   case 'image': drawUploadedImage(); break;
+ }
 }
 
 function drawCyberWeb() {
-  const { ctx, w, h, mouse } = state;
-  const color = getThemeColor('--primary-color');
-  const rgb = hexToRgb(color);
-  
-  state.cyberWebNodes.forEach((node, i) => {
-    node.x += node.vx;
-    node.y += node.vy;
-    if (node.x < 0 || node.x > w) node.vx *= -1;
-    if (node.y < 0 || node.y > h) node.vy *= -1;
-    
-    if (mouse.active) {
-      const dx = mouse.x - node.x;
-      const dy = mouse.y - node.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 100) {
-        const angle = Math.atan2(dy, dx);
-        node.x -= Math.cos(angle) * (100 - dist) * 0.02;
-        node.y -= Math.sin(angle) * (100 - dist) * 0.02;
-      }
-    }
-    
-    // Connections
-    for (let j = i + 1; j < state.cyberWebNodes.length; j++) {
-      const node2 = state.cyberWebNodes[j];
-      const dx = node.x - node2.x;
-      const dy = node.y - node2.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 150) {
-        const alpha = (1 - dist / 150) * 0.3;
-        ctx.beginPath();
-        ctx.moveTo(node.x, node.y);
-        ctx.lineTo(node2.x, node2.y);
-        ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-    
-    // Node
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${node.alpha})`;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = state.effects.glow / 2;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  });
+ const { ctx, w, h, mouse } = state;
+ const color = getThemeColor('--primary-color');
+ const rgb = hexToRgb(color);
+ 
+ state.cyberWebNodes.forEach((node, i) => {
+   node.x += node.vx;
+   node.y += node.vy;
+   if (node.x < 0 || node.x > w) node.vx *= -1;
+   if (node.y < 0 || node.y > h) node.vy *= -1;
+   
+   if (mouse.active) {
+     const dx = mouse.x - node.x;
+     const dy = mouse.y - node.y;
+     const dist = Math.sqrt(dx*dx + dy*dy);
+     if (dist < 100) {
+       const angle = Math.atan2(dy, dx);
+       node.x -= Math.cos(angle) * (100 - dist) * 0.02;
+       node.y -= Math.sin(angle) * (100 - dist) * 0.02;
+     }
+   }
+   
+   // Connections
+   for (let j = i + 1; j < state.cyberWebNodes.length; j++) {
+     const node2 = state.cyberWebNodes[j];
+     const dx = node.x - node2.x;
+     const dy = node.y - node2.y;
+     const dist = Math.sqrt(dx*dx + dy*dy);
+     if (dist < 150) {
+       const alpha = (1 - dist / 150) * 0.3;
+       ctx.beginPath();
+       ctx.moveTo(node.x, node.y);
+       ctx.lineTo(node2.x, node2.y);
+       ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+       ctx.lineWidth = 0.5;
+       ctx.stroke();
+     }
+   }
+   
+   // Node
+   ctx.beginPath();
+   ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+   ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${node.alpha})`;
+   ctx.shadowColor = color;
+   ctx.shadowBlur = state.effects.glow / 2;
+   ctx.fill();
+   ctx.shadowBlur = 0;
+ });
 }
 
 function drawParticles3D() {
-  const { ctx, mouse } = state;
-  const color = getThemeColor('--primary-color');
-  const rgb = hexToRgb(color);
-  const time = now() * 0.001;
-  
-  state.particles.forEach(p => {
-    const z = p.z + Math.sin(time + p.x * 0.01) * 0.5;
-    const scale = z / 3;
-    const x = p.x + Math.sin(time + p.y * 0.01) * 20;
-    const y = p.y + Math.cos(time + p.x * 0.01) * 20;
-    
-    ctx.beginPath();
-    ctx.arc(x, y, 2 * scale, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.5 * scale})`;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = state.effects.glow * scale;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  });
+ const { ctx, mouse } = state;
+ const color = getThemeColor('--primary-color');
+ const rgb = hexToRgb(color);
+ const time = now() * 0.001;
+ 
+ state.particles.forEach(p => {
+   const z = p.z + Math.sin(time + p.x * 0.01) * 0.5;
+   const scale = z / 3;
+   const x = p.x + Math.sin(time + p.y * 0.01) * 20;
+   const y = p.y + Math.cos(time + p.x * 0.01) * 20;
+   
+   ctx.beginPath();
+   ctx.arc(x, y, 2 * scale, 0, Math.PI * 2);
+   ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.5 * scale})`;
+   ctx.shadowColor = color;
+   ctx.shadowBlur = state.effects.glow * scale;
+   ctx.fill();
+   ctx.shadowBlur = 0;
+ });
 }
 
 function drawMatrixRain() {
-  const { ctx, h } = state;
-  const color = getThemeColor('--primary-color');
-  ctx.font = '14px "Share Tech Mono"';
-  
-  state.matrixDrops.forEach(drop => {
-    drop.y += drop.speed;
-    if (drop.y > h) {
-      drop.y = -20;
-      drop.chars = generateMatrixChars();
-    }
-    
-    drop.chars.forEach((char, i) => {
-      const y = drop.y - i * 16;
-      if (y > 0 && y < h) {
-        const alpha = 1 - (i / drop.chars.length);
-        ctx.fillStyle = i === 0 ? '#fff' : color;
-        ctx.globalAlpha = alpha;
-        ctx.fillText(char, drop.x, y);
-      }
-    });
-    ctx.globalAlpha = 1;
-  });
+ const { ctx, h } = state;
+ const color = getThemeColor('--primary-color');
+ ctx.font = '14px "Share Tech Mono"';
+ 
+ state.matrixDrops.forEach(drop => {
+   drop.y += drop.speed;
+   if (drop.y > h) {
+     drop.y = -20;
+     drop.chars = generateMatrixChars();
+   }
+   
+   drop.chars.forEach((char, i) => {
+     const y = drop.y - i * 16;
+     if (y > 0 && y < h) {
+       const alpha = 1 - (i / drop.chars.length);
+       ctx.fillStyle = i === 0 ? '#fff' : color;
+       ctx.globalAlpha = alpha;
+       ctx.fillText(char, drop.x, y);
+     }
+   });
+   ctx.globalAlpha = 1;
+ });
 }
 
 function drawAurora() {
-  const { ctx, w, h } = state;
-  const time = now() * 0.0005;
-  const color = getThemeColor('--primary-color');
-  const rgb = hexToRgb(color);
-  
-  for (let i = 0; i < 5; i++) {
-    const gradient = ctx.createLinearGradient(0, 0, w, 0);
-    const offset = i * 0.2;
-    const alpha = 0.1 - i * 0.015;
-    
-    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
-    gradient.addColorStop(0.3 + Math.sin(time + offset) * 0.2, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`);
-    gradient.addColorStop(0.7 + Math.cos(time + offset) * 0.2, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`);
-    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
-    
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.moveTo(0, h * (0.3 + i * 0.1));
-    for (let x = 0; x <= w; x += 50) {
-      const y = h * (0.3 + i * 0.1) + Math.sin(x * 0.01 + time + i) * 50;
-      ctx.lineTo(x, y);
-    }
-    ctx.lineTo(w, h);
-    ctx.lineTo(0, h);
-    ctx.fill();
-  }
+ const { ctx, w, h } = state;
+ const time = now() * 0.0005;
+ const color = getThemeColor('--primary-color');
+ const rgb = hexToRgb(color);
+ 
+ for (let i = 0; i < 5; i++) {
+   const gradient = ctx.createLinearGradient(0, 0, w, 0);
+   const offset = i * 0.2;
+   const alpha = 0.1 - i * 0.015;
+   
+   gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+   gradient.addColorStop(0.3 + Math.sin(time + offset) * 0.2, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`);
+   gradient.addColorStop(0.7 + Math.cos(time + offset) * 0.2, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`);
+   gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+   
+   ctx.fillStyle = gradient;
+   ctx.beginPath();
+   ctx.moveTo(0, h * (0.3 + i * 0.1));
+   for (let x = 0; x <= w; x += 50) {
+     const y = h * (0.3 + i * 0.1) + Math.sin(x * 0.01 + time + i) * 50;
+     ctx.lineTo(x, y);
+   }
+   ctx.lineTo(w, h);
+   ctx.lineTo(0, h);
+   ctx.fill();
+ }
 }
 
 function drawFireflies() {
-  const { ctx, w, h } = state;
-  const color = getThemeColor('--primary-color');
-  const rgb = hexToRgb(color);
-  const time = now() * 0.001;
-  
-  state.fireflies.forEach(f => {
-    f.x += f.vx + Math.sin(time + f.pulse) * 0.5;
-    f.y += f.vy + Math.cos(time + f.pulse) * 0.5;
-    f.pulse += 0.02;
-    
-    if (f.x < 0) f.x = w;
-    if (f.x > w) f.x = 0;
-    if (f.y < 0) f.y = h;
-    if (f.y > h) f.y = 0;
-    
-    const alpha = (0.5 + 0.5 * Math.sin(f.pulse)) * f.alpha;
-    ctx.beginPath();
-    ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = state.effects.glow;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  });
+ const { ctx, w, h } = state;
+ const color = getThemeColor('--primary-color');
+ const rgb = hexToRgb(color);
+ const time = now() * 0.001;
+ 
+ state.fireflies.forEach(f => {
+   f.x += f.vx + Math.sin(time + f.pulse) * 0.5;
+   f.y += f.vy + Math.cos(time + f.pulse) * 0.5;
+   f.pulse += 0.02;
+   
+   if (f.x < 0) f.x = w;
+   if (f.x > w) f.x = 0;
+   if (f.y < 0) f.y = h;
+   if (f.y > h) f.y = 0;
+   
+   const alpha = (0.5 + 0.5 * Math.sin(f.pulse)) * f.alpha;
+   ctx.beginPath();
+   ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+   ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+   ctx.shadowColor = color;
+   ctx.shadowBlur = state.effects.glow;
+   ctx.fill();
+   ctx.shadowBlur = 0;
+ });
 }
 
 function drawAnimatedGradient() {
-  const { ctx, w, h } = state;
-  const time = now() * 0.0003;
-  const color = getThemeColor('--primary-color');
-  const secondary = getThemeColor('--secondary-color');
-  
-  const gradient = ctx.createRadialGradient(
-    w * (0.5 + Math.sin(time) * 0.3),
-    h * (0.5 + Math.cos(time) * 0.3),
-    0, w / 2, h / 2, Math.max(w, h)
-  );
-  gradient.addColorStop(0, color + '20');
-  gradient.addColorStop(0.5, secondary + '10');
-  gradient.addColorStop(1, 'transparent');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, w, h);
+ const { ctx, w, h } = state;
+ const time = now() * 0.0003;
+ const color = getThemeColor('--primary-color');
+ const secondary = getThemeColor('--secondary-color');
+ 
+ const gradient = ctx.createRadialGradient(
+   w * (0.5 + Math.sin(time) * 0.3),
+   h * (0.5 + Math.cos(time) * 0.3),
+   0, w / 2, h / 2, Math.max(w, h)
+ );
+ gradient.addColorStop(0, color + '20');
+ gradient.addColorStop(0.5, secondary + '10');
+ gradient.addColorStop(1, 'transparent');
+ ctx.fillStyle = gradient;
+ ctx.fillRect(0, 0, w, h);
 }
 
 function drawUploadedImage() {
-  if (!state.uploadedImage || !state.imageLoaded) return;
-  const { ctx, w, h } = state;
-  const img = state.uploadedImage;
-  const f = state.filters;
-  
-  const scale = Math.max(w / img.width, h / img.height);
-  const dw = img.width * scale;
-  const dh = img.height * scale;
-  const dx = (w - dw) / 2;
-  const dy = (h - dh) / 2;
-  
-  ctx.save();
-  ctx.filter = `brightness(${f.brightness}%) contrast(${f.contrast}%) saturate(${f.saturation}%) blur(${f.blur}px)`;
-  ctx.globalAlpha = f.opacity / 100;
-  ctx.drawImage(img, dx, dy, dw, dh);
-  ctx.restore();
+ if (!state.uploadedImage || !state.imageLoaded) return;
+ const { ctx, w, h } = state;
+ const img = state.uploadedImage;
+ const f = state.filters;
+ 
+ const scale = Math.max(w / img.width, h / img.height);
+ const dw = img.width * scale;
+ const dh = img.height * scale;
+ const dx = (w - dw) / 2;
+ const dy = (h - dh) / 2;
+ 
+ ctx.save();
+ ctx.filter = `brightness(${f.brightness}%) contrast(${f.contrast}%) saturate(${f.saturation}%) blur(${f.blur}px)`;
+ ctx.globalAlpha = f.opacity / 100;
+ ctx.drawImage(img, dx, dy, dw, dh);
+ ctx.restore();
 }
 
 // ==================== TEXT RENDERING (المنطق الأصلي) ====================
 function initMatrixStream(textLines) {
-  state.lines = textLines || [];
-  state.displayedText = Array.isArray(state.lines) ? [...state.lines] : [String(state.lines || '')];
-  state.fullText = state.displayedText.join('');
-  state.textRevealIndex = state.fullText.length;
+ state.lines = textLines || [];
+ state.displayedText = Array.isArray(state.lines) ? [...state.lines] : [String(state.lines || '')];
+ state.fullText = state.displayedText.join('');
+ state.textRevealIndex = state.fullText.length;
 }
 
 function drawMatrixStream() {
-  if (!state.displayedText.length) return;
-  
-  const { ctx, w, h } = state;
-  const color = getThemeColor('--primary-color');
-  const rgb = hexToRgb(color);
-  
-  let fs = Math.min(w * 0.1, (h * 0.7) / state.displayedText.length);
-  ctx.font = `900 ${Math.floor(fs)}px ${FONTS[state.font]}`;
-  
-  let widest = 0;
-  state.displayedText.forEach(l => { widest = Math.max(widest, ctx.measureText(l).width); });
-  if (widest > w * 0.9) fs = fs * (w * 0.9 / widest);
-  fs = Math.max(12, Math.floor(fs));
-  ctx.font = `900 ${fs}px ${FONTS[state.font]}`;
-  
-  const lh = fs * 1.4;
-  const totalH = state.displayedText.length * lh;
-  const startY = (h / 2) - (totalH / 2) + (lh / 2);
-  
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  
-  state.displayedText.forEach((line, i) => {
-    const y = startY + i * lh;
-    const x = w / 2;
-    
-    // Glitch effect
-    if (state.effects.glitch && state.glitchIntensity > 0.1) {
-      const glitchOffsetX = (Math.random() - 0.5) * state.glitchIntensity * fs * 0.1;
-      const glitchOffsetY = (Math.random() - 0.5) * state.glitchIntensity * fs * 0.1;
-      
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      const shift = Math.max(1, Math.round(fs * 0.01));
-      ctx.fillStyle = `rgba(255,0,0,${0.6 * (1 - state.glitchIntensity)})`;
-      ctx.fillText(line, x - shift + glitchOffsetX, y + glitchOffsetY);
-      ctx.fillStyle = `rgba(0,255,255,${0.6 * (1 - state.glitchIntensity)})`;
-      ctx.fillText(line, x + shift + glitchOffsetX, y + glitchOffsetY);
-      ctx.restore();
-    }
-    
-    // Main text
-    ctx.save();
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - state.glitchIntensity})`;
-    ctx.shadowColor = color;
-    ctx.shadowBlur = state.effects.glow / 5 + state.glitchIntensity * 20;
-    ctx.fillText(line, x, y);
-    ctx.restore();
-  });
+ if (!state.displayedText.length) return;
+ 
+ const { ctx, w, h } = state;
+ const color = getThemeColor('--primary-color');
+ const rgb = hexToRgb(color);
+ 
+ let fs = Math.min(w * 0.1, (h * 0.7) / state.displayedText.length);
+ ctx.font = `900 ${Math.floor(fs)}px ${FONTS[state.font]}`;
+ 
+ let widest = 0;
+ state.displayedText.forEach(l => { widest = Math.max(widest, ctx.measureText(l).width); });
+ if (widest > w * 0.9) fs = fs * (w * 0.9 / widest);
+ fs = Math.max(12, Math.floor(fs));
+ ctx.font = `900 ${fs}px ${FONTS[state.font]}`;
+ 
+ const lh = fs * 1.4;
+ const totalH = state.displayedText.length * lh;
+ const startY = (h / 2) - (totalH / 2) + (lh / 2);
+ 
+ ctx.textAlign = 'center';
+ ctx.textBaseline = 'middle';
+ 
+ state.displayedText.forEach((line, i) => {
+   const y = startY + i * lh;
+   const x = w / 2;
+   
+   // Glitch effect
+   if (state.effects.glitch && state.glitchIntensity > 0.1) {
+     const glitchOffsetX = (Math.random() - 0.5) * state.glitchIntensity * fs * 0.1;
+     const glitchOffsetY = (Math.random() - 0.5) * state.glitchIntensity * fs * 0.1;
+     
+     ctx.save();
+     ctx.globalCompositeOperation = 'screen';
+     const shift = Math.max(1, Math.round(fs * 0.01));
+     ctx.fillStyle = `rgba(255,0,0,${0.6 * (1 - state.glitchIntensity)})`;
+     ctx.fillText(line, x - shift + glitchOffsetX, y + glitchOffsetY);
+     ctx.fillStyle = `rgba(0,255,255,${0.6 * (1 - state.glitchIntensity)})`;
+     ctx.fillText(line, x + shift + glitchOffsetX, y + glitchOffsetY);
+     ctx.restore();
+   }
+   
+   // Main text
+   ctx.save();
+   ctx.globalCompositeOperation = 'source-over';
+   ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - state.glitchIntensity})`;
+   ctx.shadowColor = color;
+   ctx.shadowBlur = state.effects.glow / 5 + state.glitchIntensity * 20;
+   ctx.fillText(line, x, y);
+   ctx.restore();
+ });
 }
 
 // ==================== RENDER LOOP ====================
 let lastFrameTime = now();
 function renderLoop(timestamp) {
-  const dt = timestamp - lastFrameTime;
-  lastFrameTime = timestamp;
-  state.fps = Math.round(1000 / dt) || 60;
-  if (elements['fps-counter']) elements['fps-counter'].textContent = `${state.fps} FPS`;
-  
-  state.glitchIntensity = Math.max(0, state.glitchIntensity * 0.9 - 0.005);
-  
-  state.ctx.clearRect(0, 0, state.w, state.h);
-  drawBackground();
-  
-  if (!state.lastFetchOK) {
-    drawErrorMessage();
-  } else {
-    drawMatrixStream();
-  }
-  
-  state.animationId = requestAnimationFrame(renderLoop);
+ const dt = timestamp - lastFrameTime;
+ lastFrameTime = timestamp;
+ state.fps = Math.round(1000 / dt) || 60;
+ if (elements['fps-counter']) elements['fps-counter'].textContent = `${state.fps} FPS`;
+ 
+ state.glitchIntensity = Math.max(0, state.glitchIntensity * 0.9 - 0.005);
+ 
+ state.ctx.clearRect(0, 0, state.w, state.h);
+ drawBackground();
+ 
+ if (!state.lastFetchOK) {
+   drawErrorMessage();
+ } else {
+   drawMatrixStream();
+ }
+ 
+ state.animationId = requestAnimationFrame(renderLoop);
 }
 
 function drawErrorMessage() {
-  const { ctx, w, h } = state;
-  const msg = "انقطاع الاتصال بالشبكة";
-  const fs = Math.min(w * 0.1, h * 0.15);
-  ctx.font = `900 ${Math.floor(fs)}px ${FONTS[state.font]}`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  const errorColor = getThemeColor('--error-color');
-  ctx.fillStyle = errorColor;
-  ctx.shadowColor = errorColor;
-  ctx.shadowBlur = 20 + Math.sin(now()/200) * 10;
-  ctx.fillText(msg, w/2, h/2);
-  ctx.shadowBlur = 0;
+ const { ctx, w, h } = state;
+ const msg = "انقطاع الاتصال بالشبكة";
+ const fs = Math.min(w * 0.1, h * 0.15);
+ ctx.font = `900 ${Math.floor(fs)}px ${FONTS[state.font]}`;
+ ctx.textAlign = 'center';
+ ctx.textBaseline = 'middle';
+ const errorColor = getThemeColor('--error-color');
+ ctx.fillStyle = errorColor;
+ ctx.shadowColor = errorColor;
+ ctx.shadowBlur = 20 + Math.sin(now()/200) * 10;
+ ctx.fillText(msg, w/2, h/2);
+ ctx.shadowBlur = 0;
 }
 
 // ==================== FETCH (المنطق الأصلي بالكامل) ====================
 async function fetchWithTimeout(url, timeout, signal) {
-  const controller = new AbortController();
-  const combinedSignal = signal || controller.signal;
-  const timer = setTimeout(() => controller.abort(), timeout);
-  try {
-    const res = await fetch(url, { cache: 'no-store', signal: combinedSignal });
-    clearTimeout(timer);
-    if (!res.ok) throw new Error('Network response not ok');
-    return await res.text();
-  } catch(e) {
-    clearTimeout(timer);
-    throw e;
-  }
+ const controller = new AbortController();
+ const combinedSignal = signal || controller.signal;
+ const timer = setTimeout(() => controller.abort(), timeout);
+ try {
+   const res = await fetch(url, { cache: 'no-store', signal: combinedSignal });
+   clearTimeout(timer);
+   if (!res.ok) throw new Error('Network response not ok');
+   return await res.text();
+ } catch(e) {
+   clearTimeout(timer);
+   throw e;
+ }
 }
 
 async function fetchPayload(manual = false) {
-  if (state.inFlightFetch) {
-    setStatus('إلغاء الطلب السابق');
-    try { state.inFlightFetch.abort(); } catch(_) {}
-  }
-  state.inFlightFetch = new AbortController();
-  elements['loading-indicator'].style.display = 'flex';
-  state.glitchIntensity = 1;
-  
-  let attempt = 0;
-  let lastError = null;
-  const maxRetries = 3;
-  const baseUrl = `${CONSTANTS.RAW_URL}?t=${Date.now()}`;
-  
-  while (attempt <= maxRetries) {
-    try {
-      setStatus(`جلب البيانات (محاولة ${attempt+1})`);
-      const text = await fetchWithTimeout(baseUrl, CONSTANTS.FETCH_TIMEOUT, state.inFlightFetch.signal);
-      applyPayload(text);
-      state.lastFetchOK = true;
-      elements['error-overlay'].classList.remove('show');
-      elements['error-message'].textContent = '';
-      setStatus('تم جلب البيانات بنجاح');
-      elements['loading-indicator'].style.display = 'none';
-      state.inFlightFetch = null;
-      state.lastFetchTime = now();
-      return;
-    } catch(err) {
-      lastError = err;
-      attempt++;
-      setStatus(`خطأ في الاتصال (${attempt})`);
-      await new Promise(res => setTimeout(res, 1000 * attempt));
-      if (state.inFlightFetch.signal.aborted) break;
-    }
-  }
-  
-  // Failed
-  state.lastFetchOK = false;
-  $('readable-content').innerText = "ERROR: CONNECTION LOST TO CYBER-NEXUS MAIN FRAME.";
-  elements['error-overlay'].classList.add('show');
-  elements['error-message'].textContent = `فشل الاتصال: ${lastError?.message || 'غير معروف'}`;
-  elements['loading-indicator'].style.display = 'none';
-  state.inFlightFetch = null;
-  setStatus('فشل في جلب البيانات');
-  if (!state.displayedText.length) initMatrixStream(["CONNECTION LOST"]);
+ if (state.inFlightFetch) {
+   setStatus('إلغاء الطلب السابق');
+   try { state.inFlightFetch.abort(); } catch(_) {}
+ }
+ state.inFlightFetch = new AbortController();
+ elements['loading-indicator'].style.display = 'flex';
+ state.glitchIntensity = 1;
+ 
+ let attempt = 0;
+ let lastError = null;
+ const maxRetries = 3;
+ const baseUrl = `${CONSTANTS.RAW_URL}?t=${Date.now()}`;
+ 
+ while (attempt <= maxRetries) {
+   try {
+     setStatus(`جلب البيانات (محاولة ${attempt+1})`);
+     const text = await fetchWithTimeout(baseUrl, CONSTANTS.FETCH_TIMEOUT, state.inFlightFetch.signal);
+     applyPayload(text);
+     state.lastFetchOK = true;
+     elements['error-overlay'].classList.remove('show');
+     elements['error-message'].textContent = '';
+     setStatus('تم جلب البيانات بنجاح');
+     elements['loading-indicator'].style.display = 'none';
+     state.inFlightFetch = null;
+     state.lastFetchTime = now();
+     return;
+   } catch(err) {
+     lastError = err;
+     attempt++;
+     setStatus(`خطأ في الاتصال (${attempt})`);
+     await new Promise(res => setTimeout(res, 1000 * attempt));
+     if (state.inFlightFetch.signal.aborted) break;
+   }
+ }
+ 
+ // Failed
+ state.lastFetchOK = false;
+ $('readable-content').innerText = "ERROR: CONNECTION LOST TO CYBER-NEXUS MAIN FRAME.";
+ elements['error-overlay'].classList.add('show');
+ elements['error-message'].textContent = `فشل الاتصال: ${lastError?.message || 'غير معروف'}`;
+ elements['loading-indicator'].style.display = 'none';
+ state.inFlightFetch = null;
+ setStatus('فشل في جلب البيانات');
+ if (!state.displayedText.length) initMatrixStream(["CONNECTION LOST"]);
 }
 
 function applyPayload(text) {
-  text = text || '';
-  const safe = safeTextForMeta(text);
-  $('readable-content').innerText = text;
-  const newLines = text.split('\n').filter(l => l.trim().length > 0);
-  initMatrixStream(newLines);
-  $('meta-desc')?.setAttribute('content', safe.substring(0, 150));
-  $('og-desc')?.setAttribute('content', safe.substring(0, 200));
-  document.title = "CYBER-NEXUS: " + (newLines[0] || 'Active');
-  state.glitchIntensity = 0.8;
-  
-  // Save to textarea and storage (المنطق الأصلي)
-  elements['msg-input'].value = text;
-  saveToStorage('text', text);
+ text = text || '';
+ const safe = safeTextForMeta(text);
+ $('readable-content').innerText = text;
+ const newLines = text.split('\n').filter(l => l.trim().length > 0);
+ initMatrixStream(newLines);
+ $('meta-desc')?.setAttribute('content', safe.substring(0, 150));
+ $('og-desc')?.setAttribute('content', safe.substring(0, 200));
+ document.title = "CYBER-NEXUS: " + (newLines[0] || 'Active');
+ state.glitchIntensity = 0.8;
+ 
+ // Save to textarea and storage (المنطق الأصلي)
+ elements['msg-input'].value = text;
+ saveToStorage('text', text);
 }
 
 // ==================== IMAGE HANDLING (مُحسّن مع IndexedDB) ====================
 async function handleImageUpload(file) {
-  if (!file || !file.type.startsWith('image/')) {
-    showToast('❌ الملف ليس صورة صالحة');
-    return;
-  }
-  if (file.size > 50 * 1024 * 1024) {
-    showToast('❌ حجم الصورة كبير جداً');
-    return;
-  }
-  
-  showToast('📸 جاري معالجة الصورة...');
-  
-  const reader = new FileReader();
-  reader.onload = async (e) => {
-    const imageData = e.target.result;
-    
-    // Save to IndexedDB (التحسين الجديد - الصورة تبقى للأبد!)
-    await saveImageToDB(imageData);
-    
-    // Also save to localStorage for backwards compatibility (if small enough)
-    if (file.size <= 800000) {
-      saveToStorage('image_data', imageData);
-      saveToStorage('image_meta', JSON.stringify({name: file.name, size: file.size, type: file.type, t: Date.now()}));
-    }
-    
-    loadImageFromData(imageData);
-    showToast('✅ تم حفظ الصورة بنجاح!');
-    updateImageStatus();
-  };
-  reader.readAsDataURL(file);
+ if (!file || !file.type.startsWith('image/')) {
+   showToast('❌ الملف ليس صورة صالحة');
+   return;
+ }
+ if (file.size > 50 * 1024 * 1024) {
+   showToast('❌ حجم الصورة كبير جداً');
+   return;
+ }
+ 
+ showToast('📸 جاري معالجة الصورة...');
+ 
+ const reader = new FileReader();
+ reader.onload = async (e) => {
+   const imageData = e.target.result;
+   
+   // Save to IndexedDB (التحسين الجديد - الصورة تبقى للأبد!)
+   await saveImageToDB(imageData);
+   
+   // Also save to localStorage for backwards compatibility (if small enough)
+   if (file.size <= 800000) {
+     saveToStorage('image_data', imageData);
+     saveToStorage('image_meta', JSON.stringify({name: file.name, size: file.size, type: file.type, t: Date.now()}));
+   }
+   
+   loadImageFromData(imageData);
+   showToast('✅ تم حفظ الصورة بنجاح!');
+   updateImageStatus();
+ };
+ reader.readAsDataURL(file);
 }
 
 function loadImageFromData(imageData) {
-  const img = new Image();
-  img.onload = () => {
-    state.uploadedImage = img;
-    state.imageLoaded = true;
-    state.bgMode = 'image';
-    elements['bg-select'].value = 'image';
-    saveToStorage('bg', 'image');
-  };
-  img.src = imageData;
+ const img = new Image();
+ img.onload = () => {
+   state.uploadedImage = img;
+   state.imageLoaded = true;
+   state.bgMode = 'image';
+   elements['bg-select'].value = 'image';
+   saveToStorage('bg', 'image');
+ };
+ img.src = imageData;
 }
 
 async function loadSavedImage() {
-  // Try IndexedDB first (التحسين الجديد)
-  const dbImage = await loadImageFromDB();
-  if (dbImage && dbImage.data) {
-    loadImageFromData(dbImage.data);
-    updateImageStatus();
-    return;
-  }
-  
-  // Fallback to localStorage (المنطق الأصلي)
-  const imgData = getFromStorage('image_data', null);
-  if (imgData) {
-    loadImageFromData(imgData);
-    updateImageStatus();
-  }
+ // Try IndexedDB first (التحسين الجديد)
+ const dbImage = await loadImageFromDB();
+ if (dbImage && dbImage.data) {
+   loadImageFromData(dbImage.data);
+   updateImageStatus();
+   return;
+ }
+ 
+ // Fallback to localStorage (المنطق الأصلي)
+ const imgData = getFromStorage('image_data', null);
+ if (imgData) {
+   loadImageFromData(imgData);
+   updateImageStatus();
+ }
 }
 
 async function clearImage() {
-  state.uploadedImage = null;
-  state.imageLoaded = false;
-  await clearImageDB();
-  removeFromStorage('image_data');
-  removeFromStorage('image_meta');
-  if (state.bgMode === 'image') {
-    state.bgMode = 'cyberweb';
-    elements['bg-select'].value = 'cyberweb';
-    saveToStorage('bg', 'cyberweb');
-  }
-  showToast('🗑️ تم مسح الصورة');
-  updateImageStatus();
+ state.uploadedImage = null;
+ state.imageLoaded = false;
+ await clearImageDB();
+ removeFromStorage('image_data');
+ removeFromStorage('image_meta');
+ if (state.bgMode === 'image') {
+   state.bgMode = 'cyberweb';
+   elements['bg-select'].value = 'cyberweb';
+   saveToStorage('bg', 'cyberweb');
+ }
+ showToast('🗑️ تم مسح الصورة');
+ updateImageStatus();
 }
 
 function updateImageStatus() {
-  if (elements['image-status']) {
-    elements['image-status'].textContent = state.imageLoaded ? '✅ صورة محفوظة' : '❌ لا توجد صورة';
-  }
+ if (elements['image-status']) {
+   elements['image-status'].textContent = state.imageLoaded ? '✅ صورة محفوظة' : '❌ لا توجد صورة';
+ }
 }
 
 // ==================== EXPORT & SHARE ====================
 function exportToPNG() {
-  const exportCanvas = document.createElement('canvas');
-  exportCanvas.width = state.canvas.width;
-  exportCanvas.height = state.canvas.height;
-  const ctx = exportCanvas.getContext('2d');
-  ctx.drawImage(state.canvas, 0, 0);
-  
-  if (state.effects.scanlines > 0) {
-    ctx.fillStyle = `rgba(0,0,0,${state.effects.scanlines/200})`;
-    for (let y = 0; y < exportCanvas.height; y += 3) ctx.fillRect(0, y, exportCanvas.width, 1);
-  }
-  
-  const link = document.createElement('a');
-  link.download = `cyber-nexus-${Date.now()}.png`;
-  link.href = exportCanvas.toDataURL('image/png', 1.0);
-  link.click();
-  showToast('💾 تم حفظ الصورة!');
-  if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
+ const exportCanvas = document.createElement('canvas');
+ exportCanvas.width = state.canvas.width;
+ exportCanvas.height = state.canvas.height;
+ const ctx = exportCanvas.getContext('2d');
+ ctx.drawImage(state.canvas, 0, 0);
+ 
+ if (state.effects.scanlines > 0) {
+   ctx.fillStyle = `rgba(0,0,0,${state.effects.scanlines/200})`;
+   for (let y = 0; y < exportCanvas.height; y += 3) ctx.fillRect(0, y, exportCanvas.width, 1);
+ }
+ 
+ const link = document.createElement('a');
+ link.download = `cyber-nexus-${Date.now()}.png`;
+ link.href = exportCanvas.toDataURL('image/png', 1.0);
+ link.click();
+ showToast('💾 تم حفظ الصورة!');
+ if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
 }
 
 async function shareContent() {
-  const text = state.displayedText.join('\n') || 'Cyber-Nexus V3.0';
-  if (navigator.share) {
-    try {
-      await navigator.share({ title: 'Cyber-Nexus', text: text.substring(0, 100) + '...', url: window.location.href });
-      showToast('📤 تمت المشاركة!');
-    } catch (err) {}
-  } else {
-    navigator.clipboard.writeText(window.location.href).then(() => showToast('📋 تم نسخ الرابط!'));
-  }
+ const text = state.displayedText.join('\n') || 'Cyber-Nexus V3.0';
+ if (navigator.share) {
+   try {
+     await navigator.share({ title: 'Cyber-Nexus', text: text.substring(0, 100) + '...', url: window.location.href });
+     showToast('📤 تمت المشاركة!');
+   } catch (err) {}
+ } else {
+   navigator.clipboard.writeText(window.location.href).then(() => showToast('📋 تم نسخ الرابط!'));
+ }
 }
 
 // ==================== THEME & STYLE ====================
 function applyTheme(themeName) {
-  const theme = THEMES[themeName];
-  if (!theme) return;
-  const root = document.documentElement;
-  root.style.setProperty('--primary-color', theme.primary);
-  root.style.setProperty('--secondary-color', theme.secondary);
-  root.style.setProperty('--panel-border', theme.border);
-  state.theme = themeName;
-  saveToStorage('theme', themeName);
+ const theme = THEMES[themeName];
+ if (!theme) return;
+ const root = document.documentElement;
+ root.style.setProperty('--primary-color', theme.primary);
+ root.style.setProperty('--secondary-color', theme.secondary);
+ root.style.setProperty('--panel-border', theme.border);
+ state.theme = themeName;
+ saveToStorage('theme', themeName);
 }
 
 function applyFont(fontName) {
-  if (!FONTS[fontName]) return;
-  document.documentElement.style.setProperty('--font-main', FONTS[fontName]);
-  state.font = fontName;
-  saveToStorage('font', fontName);
+ if (!FONTS[fontName]) return;
+ document.documentElement.style.setProperty('--font-main', FONTS[fontName]);
+ state.font = fontName;
+ saveToStorage('font', fontName);
 }
 
 function updateEffectsCSS() {
-  const root = document.documentElement;
-  root.style.setProperty('--scanline-opacity', state.effects.scanlines / 100);
-  root.style.setProperty('--vignette-opacity', state.effects.vignette / 100);
-  root.style.setProperty('--grain-opacity', state.effects.grain / 100);
+ const root = document.documentElement;
+ root.style.setProperty('--scanline-opacity', state.effects.scanlines / 100);
+ root.style.setProperty('--vignette-opacity', state.effects.vignette / 100);
+ root.style.setProperty('--grain-opacity', state.effects.grain / 100);
 }
 
 // ==================== STATUS INDICATORS ====================
 function updateCountdown() {
-  const timeSince = now() - state.lastFetchTime;
-  const timeLeft = CONSTANTS.FETCH_INTERVAL - timeSince;
-  if (timeLeft > 0) {
-    const secs = Math.floor((timeLeft / 1000) % 60);
-    const mins = Math.floor((timeLeft / (1000 * 60)) % 60);
-    elements['countdown-timer'].textContent = `تحديث: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-  } else {
-    elements['countdown-timer'].textContent = 'جاري التحديث...';
-  }
+ const timeSince = now() - state.lastFetchTime;
+ const timeLeft = CONSTANTS.FETCH_INTERVAL - timeSince;
+ if (timeLeft > 0) {
+   const secs = Math.floor((timeLeft / 1000) % 60);
+   const mins = Math.floor((timeLeft / (1000 * 60)) % 60);
+   elements['countdown-timer'].textContent = `تحديث: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+ } else {
+   elements['countdown-timer'].textContent = 'جاري التحديث...';
+ }
 }
 
 function updateBatteryStatus() {
-  if ('getBattery' in navigator) {
-    navigator.getBattery().then(battery => {
-      const level = (battery.level * 100).toFixed(0);
-      const charging = battery.charging ? '⚡' : '';
-      elements['battery-status'].textContent = `طاقة: ${level}% ${charging}`;
-    });
-  }
+ if ('getBattery' in navigator) {
+   navigator.getBattery().then(battery => {
+     const level = (battery.level * 100).toFixed(0);
+     const charging = battery.charging ? '⚡' : '';
+     elements['battery-status'].textContent = `طاقة: ${level}% ${charging}`;
+   });
+ }
 }
 
 // ==================== PREFERENCES (المنطق الأصلي + URL) ====================
 function restorePreferences() {
-  // Background (افتراضي: cyberweb)
-  const savedBg = getFromURL('bg') || getFromStorage('bg', 'cyberweb');
-  state.bgMode = savedBg;
-  elements['bg-select'].value = savedBg;
-  
-  // Theme (افتراضي: cyan)
-  const savedTheme = getFromURL('th') || getFromStorage('theme', 'cyan');
-  applyTheme(savedTheme);
-  elements['theme-select'].value = savedTheme;
-  
-  // Font (افتراضي: electrolize)
-  const savedFont = getFromURL('fn') || getFromStorage('font', 'electrolize');
-  applyFont(savedFont);
-  elements['font-select'].value = savedFont;
-  
-  // Effects (افتراضي: 12,70,4,50,1)
-  const urlFx = getFromURL('fx');
-  const savedFx = urlFx ? decodeEffects(urlFx) : 
-                  JSON.parse(getFromStorage('effects', '{}'));
-  state.effects = { scanlines: 12, vignette: 70, grain: 4, glow: 50, glitch: true, ...savedFx };
-  
-  // Filters (افتراضي: 100,120,100,0,100)
-  const urlFl = getFromURL('fl');
-  const savedFl = urlFl ? decodeFilters(urlFl) : 
-                  JSON.parse(getFromStorage('filters', '{}'));
-  state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100, ...savedFl };
-  
-  // تحديث UI
-  elements['scanline-slider'].value = state.effects.scanlines;
-  elements['vignette-slider'].value = state.effects.vignette;
-  elements['grain-slider'].value = state.effects.grain;
-  elements['glow-slider'].value = state.effects.glow;
-  elements['glitch-toggle'].classList.toggle('active', state.effects.glitch);
-  
-  elements['brightness-slider'].value = state.filters.brightness;
-  elements['contrast-slider'].value = state.filters.contrast;
-  elements['saturation-slider'].value = state.filters.saturation;
-  elements['blur-slider'].value = state.filters.blur;
-  elements['opacity-slider'].value = state.filters.opacity;
-  
-  // Text (فقط LocalStorage - لا نريد URL ضخم)
-  const savedText = getFromStorage('text', '');
-  if (savedText) {
-    elements['msg-input'].value = savedText;
-    initMatrixStream(savedText.split('\n').filter(l => l.trim()));
-  }
-  
-  updateEffectsCSS();
+ // Background (افتراضي: cyberweb)
+ const savedBg = getFromURL('bg') || getFromStorage('bg', 'cyberweb');
+ state.bgMode = savedBg;
+ elements['bg-select'].value = savedBg;
+ 
+ // Theme (افتراضي: cyan)
+ const savedTheme = getFromURL('th') || getFromStorage('theme', 'cyan');
+ applyTheme(savedTheme);
+ elements['theme-select'].value = savedTheme;
+ 
+ // Font (افتراضي: electrolize)
+ const savedFont = getFromURL('fn') || getFromStorage('font', 'electrolize');
+ applyFont(savedFont);
+ elements['font-select'].value = savedFont;
+ 
+ // Effects (افتراضي: 12,70,4,50,1)
+ const urlFx = getFromURL('fx');
+ const savedFx = urlFx ? decodeEffects(urlFx) : 
+                 JSON.parse(getFromStorage('effects', '{}'));
+ state.effects = { scanlines: 12, vignette: 70, grain: 4, glow: 50, glitch: true, ...savedFx };
+ 
+ // Filters (افتراضي: 100,120,100,0,100)
+ const urlFl = getFromURL('fl');
+ const savedFl = urlFl ? decodeFilters(urlFl) : 
+                 JSON.parse(getFromStorage('filters', '{}'));
+ state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100, ...savedFl };
+ 
+ // تحديث UI
+ elements['scanline-slider'].value = state.effects.scanlines;
+ elements['vignette-slider'].value = state.effects.vignette;
+ elements['grain-slider'].value = state.effects.grain;
+ elements['glow-slider'].value = state.effects.glow;
+ elements['glitch-toggle'].classList.toggle('active', state.effects.glitch);
+ 
+ elements['brightness-slider'].value = state.filters.brightness;
+ elements['contrast-slider'].value = state.filters.contrast;
+ elements['saturation-slider'].value = state.filters.saturation;
+ elements['blur-slider'].value = state.filters.blur;
+ elements['opacity-slider'].value = state.filters.opacity;
+ 
+ // Text (فقط LocalStorage - لا نريد URL ضخم)
+ const savedText = getFromStorage('text', '');
+ if (savedText) {
+   elements['msg-input'].value = savedText;
+   initMatrixStream(savedText.split('\n').filter(l => l.trim()));
+ }
+ 
+ updateEffectsCSS();
+}
+
+// ==================== COPY TO CLIPBOARD (الحل النهائي) ====================
+async function copyToClipboard(text, btnElement, successMsg) {
+ try {
+   // المحاولة 1: Clipboard API الحديث
+   if (navigator.clipboard && window.isSecureContext) {
+     await navigator.clipboard.writeText(text);
+     showCopyFeedback(btnElement, successMsg);
+     return true;
+   }
+ } catch (err) {
+   console.log('Clipboard API failed:', err);
+ }
+ 
+ try {
+   // المحاولة 2: execCommand للمتصفحات القديمة
+   const textArea = document.createElement('textarea');
+   textArea.value = text;
+   textArea.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;z-index:-1;';
+   document.body.appendChild(textArea);
+   textArea.focus();
+   textArea.select();
+   
+   const successful = document.execCommand('copy');
+   document.body.removeChild(textArea);
+   
+   if (successful) {
+     showCopyFeedback(btnElement, successMsg);
+     return true;
+   }
+ } catch (err) {
+   console.log('execCommand failed:', err);
+ }
+ 
+ // المحاولة 3: للهواتف المحمولة (iOS Safari)
+ try {
+   const range = document.createRange();
+   const selection = window.getSelection();
+   const tempEl = document.createElement('span');
+   tempEl.textContent = text;
+   tempEl.style.cssText = 'position:fixed;left:-9999px;';
+   document.body.appendChild(tempEl);
+   range.selectNodeContents(tempEl);
+   selection.removeAllRanges();
+   selection.addRange(range);
+   
+   const successful = document.execCommand('copy');
+   document.body.removeChild(tempEl);
+   selection.removeAllRanges();
+   
+   if (successful) {
+     showCopyFeedback(btnElement, successMsg);
+     return true;
+   }
+ } catch (err) {
+   console.log('Range selection failed:', err);
+ }
+ 
+ // فشل جميع المحاولات - عرض الرابط للنسخ اليدوي
+ showToast('⚠️ انسخ الرابط يدوياً');
+ prompt('انسخ هذا الرابط:', text);
+ return false;
+}
+
+function showCopyFeedback(btn, msg) {
+ const prev = btn.textContent;
+ btn.textContent = '✓ تم النسخ';
+ btn.classList.add('primary');
+ showToast(msg);
+ if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
+ setTimeout(() => { 
+   btn.textContent = prev; 
+   btn.classList.remove('primary'); 
+ }, 1400);
 }
 
 // ==================== EVENT LISTENERS ====================
 function setupEventListeners() {
-  // UI Toggle
-  elements['secret-trigger'].addEventListener('click', toggleAdmin);
-  elements['ui-close-btn'].addEventListener('click', toggleAdmin);
-  elements['ui-overlay'].addEventListener('click', toggleAdmin);
-  
-  // Buttons
-  elements['btn-update'].addEventListener('click', () => fetchPayload(true));
-  
-  // نسخ RAW URL (المنطق الأصلي)
-  elements['btn-copy-raw'].addEventListener('click', function() {
-    navigator.clipboard?.writeText(CONSTANTS.RAW_URL).then(() => {
-      const prev = this.textContent;
-      this.textContent = '✓ تم النسخ';
-      this.classList.add('primary');
-      setTimeout(() => { this.textContent = prev; this.classList.remove('primary'); }, 1400);
-      if (navigator.vibrate) navigator.vibrate(50);
-    });
-  });
-  
-  // نسخ رابط الصفحة مع الإعدادات (مضغوط!)
-  elements['btn-copy-link'].addEventListener('click', function() {
-    // مزامنة الإعدادات الحالية إلى URL
-    saveToURL('bg', state.bgMode);
-    saveToURL('th', state.theme);
-    saveToURL('fn', state.font);
-    saveToURL('fx', encodeEffects(state.effects));
-    saveToURL('fl', encodeFilters(state.filters));
-    
-    navigator.clipboard?.writeText(window.location.href).then(() => {
-      const prev = this.textContent;
-      this.textContent = '✓ تم النسخ';
-      this.classList.add('primary');
-      setTimeout(() => { this.textContent = prev; this.classList.remove('primary'); }, 1400);
-      if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
-      showToast('📋 تم نسخ الرابط مع الألوان!');
-    });
-  });
-  
-  elements['btn-export-png'].addEventListener('click', exportToPNG);
-  elements['fab-export'].addEventListener('click', exportToPNG);
-  elements['btn-share'].addEventListener('click', shareContent);
-  elements['btn-fullscreen'].addEventListener('click', toggleFullscreen);
-  elements['fab-fullscreen'].addEventListener('click', toggleFullscreen);
-  elements['btn-clear-image'].addEventListener('click', clearImage);
-  elements['btn-clear-all'].addEventListener('click', clearAll);
-  elements['btn-retry-fetch'].addEventListener('click', () => {
-    elements['error-overlay'].classList.remove('show');
-    fetchPayload(true);
-  });
-  
-  // Selects - حفظ فوري في URL
-  elements['bg-select'].addEventListener('change', (e) => {
-    state.bgMode = e.target.value;
-    saveToStorage('bg', state.bgMode);
-    saveToURL('bg', state.bgMode);
-    if (state.bgMode === 'matrix') initMatrixDrops();
-    if (state.bgMode === 'fireflies') initFireflies();
-  });
-  
-  elements['theme-select'].addEventListener('change', (e) => {
-    applyTheme(e.target.value);
-    saveToStorage('theme', e.target.value);
-    saveToURL('th', e.target.value);
-  });
-  
-  elements['font-select'].addEventListener('change', (e) => {
-    applyFont(e.target.value);
-    saveToStorage('font', e.target.value);
-    saveToURL('fn', e.target.value);
-  });
-  
-  // File upload (لا يؤثر على URL)
-  elements['img-uploader'].addEventListener('change', (e) => {
-    if (e.target.files[0]) handleImageUpload(e.target.files[0]);
-  });
-  
-  // Text input (LocalStorage فقط - لا URL)
-  elements['msg-input'].addEventListener('input', (e) => {
-    const text = e.target.value;
-    saveToStorage('text', text);
-    initMatrixStream(text.split('\n').filter(l => l.trim()));
-  });
-  
-  // Effect sliders - حفظ مضغوط في URL
-  const updateEffects = () => {
-    updateEffectsCSS();
-    saveToStorage('effects', JSON.stringify(state.effects));
-    saveToURL('fx', encodeEffects(state.effects));
-  };
-  
-  elements['scanline-slider'].addEventListener('input', (e) => {
-    state.effects.scanlines = parseInt(e.target.value);
-    updateEffects();
-  });
-  elements['vignette-slider'].addEventListener('input', (e) => {
-    state.effects.vignette = parseInt(e.target.value);
-    updateEffects();
-  });
-  elements['grain-slider'].addEventListener('input', (e) => {
-    state.effects.grain = parseInt(e.target.value);
-    updateEffects();
-  });
-  elements['glow-slider'].addEventListener('input', (e) => {
-    state.effects.glow = parseInt(e.target.value);
-    updateEffects();
-  });
-  elements['glitch-toggle'].addEventListener('click', (e) => {
-    state.effects.glitch = !state.effects.glitch;
-    e.target.classList.toggle('active', state.effects.glitch);
-    updateEffects();
-  });
-  
-  // Filter sliders - حفظ مضغوط في URL
-  const updateFilters = () => {
-    saveToStorage('filters', JSON.stringify(state.filters));
-    saveToURL('fl', encodeFilters(state.filters));
-  };
-  
-  elements['brightness-slider'].addEventListener('input', (e) => {
-    state.filters.brightness = parseInt(e.target.value);
-    updateFilters();
-  });
-  elements['contrast-slider'].addEventListener('input', (e) => {
-    state.filters.contrast = parseInt(e.target.value);
-    updateFilters();
-  });
-  elements['saturation-slider'].addEventListener('input', (e) => {
-    state.filters.saturation = parseInt(e.target.value);
-    updateFilters();
-  });
-  elements['blur-slider'].addEventListener('input', (e) => {
-    state.filters.blur = parseInt(e.target.value);
-    updateFilters();
-  });
-  elements['opacity-slider'].addEventListener('input', (e) => {
-    state.filters.opacity = parseInt(e.target.value);
-    updateFilters();
-  });
-  elements['btn-reset-filters'].addEventListener('click', () => {
-    state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100 };
-    ['brightness', 'contrast', 'saturation', 'blur', 'opacity'].forEach(key => {
-      elements[key + '-slider'].value = state.filters[key];
-    });
-    updateFilters();
-    showToast('🔄 تم إعادة تعيين الفلاتر');
-  });
-  
-  // Drag & drop
-  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
-    document.body.addEventListener(event, (e) => { e.preventDefault(); e.stopPropagation(); });
-  });
-  document.body.addEventListener('dragenter', () => elements['drop-zone'].classList.add('active'));
-  document.body.addEventListener('dragleave', (e) => { if (e.relatedTarget === null) elements['drop-zone'].classList.remove('active'); });
-  document.body.addEventListener('drop', (e) => {
-    elements['drop-zone'].classList.remove('active');
-    if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files[0]);
-  });
-  
-  // Window resize
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      resizeCanvas();
-      initCyberWeb();
-      initParticles();
-      initMatrixDrops();
-      initFireflies();
-    }, 110);
-  });
-  
-  // Mouse tracking
-  state.canvas.addEventListener('mousemove', (e) => {
-    state.mouse.x = e.clientX;
-    state.mouse.y = e.clientY;
-    state.mouse.active = true;
-  });
-  state.canvas.addEventListener('mouseleave', () => state.mouse.active = false);
-  state.canvas.addEventListener('touchmove', (e) => {
-    if (e.touches[0]) {
-      state.mouse.x = e.touches[0].clientX;
-      state.mouse.y = e.touches[0].clientY;
-      state.mouse.active = true;
-    }
-  }, { passive: true });
-  state.canvas.addEventListener('touchend', () => state.mouse.active = false);
-  
-  // Keyboard shortcuts
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.isAdmin) toggleAdmin();
-    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-      e.preventDefault();
-      toggleAdmin();
-    }
-  });
-  
-  // Double tap
-  let lastTap = 0;
-  document.addEventListener('touchend', (e) => {
-    const currentTime = Date.now();
-    if (currentTime - lastTap < 300) toggleAdmin();
-    lastTap = currentTime;
-  });
-  
-  // Collapsible sections
-  document.querySelectorAll('.collapsible-header').forEach(header => {
-    header.addEventListener('click', () => header.parentElement.classList.toggle('open'));
-  });
+ // UI Toggle
+ elements['secret-trigger'].addEventListener('click', toggleAdmin);
+ elements['ui-close-btn'].addEventListener('click', toggleAdmin);
+ elements['ui-overlay'].addEventListener('click', toggleAdmin);
+ 
+ // Buttons
+ elements['btn-update'].addEventListener('click', () => fetchPayload(true));
+ 
+ // نسخ RAW URL
+ elements['btn-copy-raw'].addEventListener('click', function() {
+   copyToClipboard(CONSTANTS.RAW_URL, this, '📋 تم نسخ RAW URL');
+ });
+ 
+ // نسخ رابط الصفحة مع الإعدادات (الحل النهائي)
+ elements['btn-copy-link'].addEventListener('click', function() {
+   // مزامنة الإعدادات الحالية إلى URL
+   saveToURL('bg', state.bgMode);
+   saveToURL('th', state.theme);
+   saveToURL('fn', state.font);
+   saveToURL('fx', encodeEffects(state.effects));
+   saveToURL('fl', encodeFilters(state.filters));
+   
+   copyToClipboard(window.location.href, this, '📋 تم نسخ الرابط مع الألوان!');
+ });
+ 
+ elements['btn-export-png'].addEventListener('click', exportToPNG);
+ elements['fab-export'].addEventListener('click', exportToPNG);
+ elements['btn-share'].addEventListener('click', shareContent);
+ elements['btn-fullscreen'].addEventListener('click', toggleFullscreen);
+ elements['fab-fullscreen'].addEventListener('click', toggleFullscreen);
+ elements['btn-clear-image'].addEventListener('click', clearImage);
+ elements['btn-clear-all'].addEventListener('click', clearAll);
+ elements['btn-retry-fetch'].addEventListener('click', () => {
+   elements['error-overlay'].classList.remove('show');
+   fetchPayload(true);
+ });
+ 
+ // Selects - حفظ فوري في URL
+ elements['bg-select'].addEventListener('change', (e) => {
+   state.bgMode = e.target.value;
+   saveToStorage('bg', state.bgMode);
+   saveToURL('bg', state.bgMode);
+   if (state.bgMode === 'matrix') initMatrixDrops();
+   if (state.bgMode === 'fireflies') initFireflies();
+ });
+ 
+ elements['theme-select'].addEventListener('change', (e) => {
+   applyTheme(e.target.value);
+   saveToStorage('theme', e.target.value);
+   saveToURL('th', e.target.value);
+ });
+ 
+ elements['font-select'].addEventListener('change', (e) => {
+   applyFont(e.target.value);
+   saveToStorage('font', e.target.value);
+   saveToURL('fn', e.target.value);
+ });
+ 
+ // File upload (لا يؤثر على URL)
+ elements['img-uploader'].addEventListener('change', (e) => {
+   if (e.target.files[0]) handleImageUpload(e.target.files[0]);
+ });
+ 
+ // Text input (LocalStorage فقط - لا URL)
+ elements['msg-input'].addEventListener('input', (e) => {
+   const text = e.target.value;
+   saveToStorage('text', text);
+   initMatrixStream(text.split('\n').filter(l => l.trim()));
+ });
+ 
+ // Effect sliders - حفظ مضغوط في URL
+ const updateEffects = () => {
+   updateEffectsCSS();
+   saveToStorage('effects', JSON.stringify(state.effects));
+   saveToURL('fx', encodeEffects(state.effects));
+ };
+ 
+ elements['scanline-slider'].addEventListener('input', (e) => {
+   state.effects.scanlines = parseInt(e.target.value);
+   updateEffects();
+ });
+ elements['vignette-slider'].addEventListener('input', (e) => {
+   state.effects.vignette = parseInt(e.target.value);
+   updateEffects();
+ });
+ elements['grain-slider'].addEventListener('input', (e) => {
+   state.effects.grain = parseInt(e.target.value);
+   updateEffects();
+ });
+ elements['glow-slider'].addEventListener('input', (e) => {
+   state.effects.glow = parseInt(e.target.value);
+   updateEffects();
+ });
+ elements['glitch-toggle'].addEventListener('click', (e) => {
+   state.effects.glitch = !state.effects.glitch;
+   e.target.classList.toggle('active', state.effects.glitch);
+   updateEffects();
+ });
+ 
+ // Filter sliders - حفظ مضغوط في URL
+ const updateFilters = () => {
+   saveToStorage('filters', JSON.stringify(state.filters));
+   saveToURL('fl', encodeFilters(state.filters));
+ };
+ 
+ elements['brightness-slider'].addEventListener('input', (e) => {
+   state.filters.brightness = parseInt(e.target.value);
+   updateFilters();
+ });
+ elements['contrast-slider'].addEventListener('input', (e) => {
+   state.filters.contrast = parseInt(e.target.value);
+   updateFilters();
+ });
+ elements['saturation-slider'].addEventListener('input', (e) => {
+   state.filters.saturation = parseInt(e.target.value);
+   updateFilters();
+ });
+ elements['blur-slider'].addEventListener('input', (e) => {
+   state.filters.blur = parseInt(e.target.value);
+   updateFilters();
+ });
+ elements['opacity-slider'].addEventListener('input', (e) => {
+   state.filters.opacity = parseInt(e.target.value);
+   updateFilters();
+ });
+ elements['btn-reset-filters'].addEventListener('click', () => {
+   state.filters = { brightness: 100, contrast: 120, saturation: 100, blur: 0, opacity: 100 };
+   ['brightness', 'contrast', 'saturation', 'blur', 'opacity'].forEach(key => {
+     elements[key + '-slider'].value = state.filters[key];
+   });
+   updateFilters();
+   showToast('🔄 تم إعادة تعيين الفلاتر');
+ });
+ 
+ // Drag & drop
+ ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+   document.body.addEventListener(event, (e) => { e.preventDefault(); e.stopPropagation(); });
+ });
+ document.body.addEventListener('dragenter', () => elements['drop-zone'].classList.add('active'));
+ document.body.addEventListener('dragleave', (e) => { if (e.relatedTarget === null) elements['drop-zone'].classList.remove('active'); });
+ document.body.addEventListener('drop', (e) => {
+   elements['drop-zone'].classList.remove('active');
+   if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files[0]);
+ });
+ 
+ // Window resize
+ let resizeTimer;
+ window.addEventListener('resize', () => {
+   clearTimeout(resizeTimer);
+   resizeTimer = setTimeout(() => {
+     resizeCanvas();
+     initCyberWeb();
+     initParticles();
+     initMatrixDrops();
+     initFireflies();
+   }, 110);
+ });
+ 
+ // Mouse tracking
+ state.canvas.addEventListener('mousemove', (e) => {
+   state.mouse.x = e.clientX;
+   state.mouse.y = e.clientY;
+   state.mouse.active = true;
+ });
+ state.canvas.addEventListener('mouseleave', () => state.mouse.active = false);
+ state.canvas.addEventListener('touchmove', (e) => {
+   if (e.touches[0]) {
+     state.mouse.x = e.touches[0].clientX;
+     state.mouse.y = e.touches[0].clientY;
+     state.mouse.active = true;
+   }
+ }, { passive: true });
+ state.canvas.addEventListener('touchend', () => state.mouse.active = false);
+ 
+ // Keyboard shortcuts
+ document.addEventListener('keydown', (e) => {
+   if (e.key === 'Escape' && state.isAdmin) toggleAdmin();
+   if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+     e.preventDefault();
+     toggleAdmin();
+   }
+ });
+ 
+ // Double tap
+ let lastTap = 0;
+ document.addEventListener('touchend', (e) => {
+   const currentTime = Date.now();
+   if (currentTime - lastTap < 300) toggleAdmin();
+   lastTap = currentTime;
+ });
+ 
+ // Collapsible sections
+ document.querySelectorAll('.collapsible-header').forEach(header => {
+   header.addEventListener('click', () => header.parentElement.classList.toggle('open'));
+ });
 }
 
 function toggleAdmin() {
-  state.isAdmin = !state.isAdmin;
-  document.body.classList.toggle('admin-mode', state.isAdmin);
-  elements['ui-layer'].setAttribute('aria-hidden', !state.isAdmin);
-  if (navigator.vibrate && state.isAdmin) navigator.vibrate(30);
+ state.isAdmin = !state.isAdmin;
+ document.body.classList.toggle('admin-mode', state.isAdmin);
+ elements['ui-layer'].setAttribute('aria-hidden', !state.isAdmin);
+ if (navigator.vibrate && state.isAdmin) navigator.vibrate(30);
 }
 
 function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen();
-  }
+ if (!document.fullscreenElement) {
+   document.documentElement.requestFullscreen().catch(() => {});
+ } else {
+   document.exitFullscreen();
+ }
 }
 
 async function clearAll() {
-  if (!confirm('هل أنت متأكد من مسح جميع البيانات؟')) return;
-  
-  state.uploadedImage = null;
-  state.imageLoaded = false;
-  state.displayedText = [];
-  
-  // Clear all storage
-  ['bg', 'theme', 'font', 'text', 'effects', 'filters', 'image_data', 'image_meta'].forEach(key => {
-    removeFromStorage(key);
-  });
-  await clearImageDB();
-  
-  elements['msg-input'].value = '';
-  applyTheme('cyan');
-  applyFont('electrolize');
-  state.bgMode = 'cyberweb';
-  elements['bg-select'].value = 'cyberweb';
-  
-  showToast('♻️ تم مسح جميع البيانات');
-  updateImageStatus();
+ if (!confirm('هل أنت متأكد من مسح جميع البيانات؟')) return;
+ 
+ state.uploadedImage = null;
+ state.imageLoaded = false;
+ state.displayedText = [];
+ 
+ // Clear all storage
+ ['bg', 'theme', 'font', 'text', 'effects', 'filters', 'image_data', 'image_meta'].forEach(key => {
+   removeFromStorage(key);
+ });
+ await clearImageDB();
+ 
+ elements['msg-input'].value = '';
+ applyTheme('cyan');
+ applyFont('electrolize');
+ state.bgMode = 'cyberweb';
+ elements['bg-select'].value = 'cyberweb';
+ 
+ showToast('♻️ تم مسح جميع البيانات');
+ updateImageStatus();
 }
 
 // ==================== HELPERS ====================
 function getThemeColor(varName) {
-  return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+ return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
 }
 
 function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : { r: 0, g: 255, b: 204 };
+ const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+ return result ? {
+   r: parseInt(result[1], 16),
+   g: parseInt(result[2], 16),
+   b: parseInt(result[3], 16)
+ } : { r: 0, g: 255, b: 204 };
 }
 
 // ==================== START ====================
@@ -1805,16 +1867,16 @@ window.addEventListener('load', init);
 
 // Expose API
 window.CYBERNEXUS = {
-  fetchPayload,
-  exportToPNG,
-  shareContent,
-  toggleFullscreen,
-  toggleAdmin,
-  setTheme: applyTheme,
-  setFont: applyFont,
-  clearImage,
-  clearAll,
-  getState: () => ({ ...state })
+ fetchPayload,
+ exportToPNG,
+ shareContent,
+ toggleFullscreen,
+ toggleAdmin,
+ setTheme: applyTheme,
+ setFont: applyFont,
+ clearImage,
+ clearAll,
+ getState: () => ({ ...state })
 };
 </script>
 </body>
